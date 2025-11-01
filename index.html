@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smash Ultimate Tracker</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-gamepad"></i> Smash Ultimate Tracker
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#"><i class="fas fa-home"></i> Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-calendar-alt"></i> Sessions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-chart-bar"></i> Statistiques</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h1 class="text-center">
+                    <i class="fas fa-trophy text-warning"></i>
+                    Bienvenue sur Smash Ultimate Tracker
+                </h1>
+                <p class="text-center text-muted">Trackez vos sessions de jeu et consultez vos statistiques</p>
+            </div>
+        </div>
+
+        <!-- Firebase Connection Status -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div id="firebase-status" class="alert alert-info" role="alert">
+                    <i class="fas fa-spinner fa-spin"></i> Connexion à Firebase en cours...
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="row mb-4">
+            <div class="col-md-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-plus-circle fa-3x text-primary mb-3"></i>
+                        <h5 class="card-title">Nouvelle Session</h5>
+                        <p class="card-text">Créez une nouvelle session de jeu avec vos amis</p>
+                        <button class="btn btn-primary" id="btn-new-session">
+                            <i class="fas fa-plus"></i> Créer une session
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-list fa-3x text-success mb-3"></i>
+                        <h5 class="card-title">Sessions Récentes</h5>
+                        <p class="card-text">Consultez et continuez vos sessions en cours</p>
+                        <button class="btn btn-success" id="btn-view-sessions">
+                            <i class="fas fa-eye"></i> Voir les sessions
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Firebase Section -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="mb-0"><i class="fas fa-flask"></i> Test Firebase</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Utilisez ces boutons pour tester la connexion à Firebase :</p>
+                        <div class="d-grid gap-2 d-md-flex">
+                            <button class="btn btn-outline-primary" id="btn-test-write">
+                                <i class="fas fa-pen"></i> Tester l'écriture
+                            </button>
+                            <button class="btn btn-outline-success" id="btn-test-read">
+                                <i class="fas fa-book-open"></i> Tester la lecture
+                            </button>
+                        </div>
+                        <div id="test-results" class="mt-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sessions List (will be populated dynamically) -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <h3><i class="fas fa-history"></i> Dernières Sessions</h3>
+                <div id="sessions-list" class="row">
+                    <!-- Sessions will be loaded here -->
+                    <div class="col-12 text-center text-muted py-5">
+                        <i class="fas fa-inbox fa-3x mb-3"></i>
+                        <p>Aucune session pour le moment. Créez-en une pour commencer !</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p class="mb-0">
+            <i class="fas fa-gamepad"></i> Smash Ultimate Tracker - 
+            Fait avec <i class="fas fa-heart text-danger"></i> pour les fans de Smash Bros
+        </p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Firebase SDK (version 10.7.1 - compat pour compatibilité) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    
+    <!-- Firebase Configuration -->
+    <script src="js/firebase-config.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="js/app.js"></script>
+</body>
+</html>
+

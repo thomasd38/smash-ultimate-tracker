@@ -26,10 +26,7 @@ Cette application permet de créer et gérer des **sessions de jeu** qui représ
 
 ## 📱 Compatibilité
 
-L'application est **responsive** et optimisée pour être utilisée sur :
-- 💻 PC / Desktop
-- 📱 Téléphone / Mobile
-- 📱 Tablette
+L'application est **responsive** et optimisée pour être utilisée sur PC et téléphone.
 
 ## 🚀 Déploiement
 

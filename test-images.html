@@ -55,7 +55,7 @@
         
         .images-container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 15px;
         }
         
@@ -261,7 +261,7 @@
                         <div class="image-label"><i class="fas fa-image"></i> Icon</div>
                         <div class="image-wrapper loading" data-type="icon">
                             <i class="fas fa-spinner fa-spin status-icon text-warning"></i>
-                            <img src="${character.images.icon}" 
+                            <img src="${character.images.icon}"
                                  alt="${character.name} icon"
                                  onload="imageLoaded(this, '${character.id}')"
                                  onerror="imageError(this, '${character.id}', 'icon')">
@@ -271,20 +271,10 @@
                         <div class="image-label"><i class="fas fa-portrait"></i> Portrait</div>
                         <div class="image-wrapper loading" data-type="portrait">
                             <i class="fas fa-spinner fa-spin status-icon text-warning"></i>
-                            <img src="${character.images.portrait}" 
+                            <img src="${character.images.portrait}"
                                  alt="${character.name} portrait"
                                  onload="imageLoaded(this, '${character.id}')"
                                  onerror="imageError(this, '${character.id}', 'portrait')">
-                        </div>
-                    </div>
-                    <div class="image-box">
-                        <div class="image-label"><i class="fas fa-user"></i> Full</div>
-                        <div class="image-wrapper loading" data-type="full">
-                            <i class="fas fa-spinner fa-spin status-icon text-warning"></i>
-                            <img src="${character.images.full}" 
-                                 alt="${character.name} full"
-                                 onload="imageLoaded(this, '${character.id}')"
-                                 onerror="imageError(this, '${character.id}', 'full')">
                         </div>
                     </div>
                 </div>
@@ -376,7 +366,7 @@
             }
             
             stats.total = window.ALL_CHARACTERS.length;
-            stats.loading = stats.total * 3; // 3 images par personnage
+            stats.loading = stats.total * 2; // 2 images par personnage
             updateStats();
             
             window.ALL_CHARACTERS.forEach(character => {

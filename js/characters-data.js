@@ -13,8 +13,7 @@ const ALL_CHARACTERS = [
     series: 'Super Mario',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/mario.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/mario/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/mario/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/mario/main.png'
     }
   },
     {
@@ -24,8 +23,7 @@ const ALL_CHARACTERS = [
     series: 'Donkey Kong',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/donkey_kong.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/donkey_kong/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/donkey_kong/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/donkey_kong/main.png'
     }
   },
     {
@@ -35,8 +33,7 @@ const ALL_CHARACTERS = [
     series: 'The Legend of Zelda',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/link.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/link/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/link/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/link/main.png'
     }
   },
     {
@@ -46,8 +43,7 @@ const ALL_CHARACTERS = [
     series: 'Metroid',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/samus.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/samus/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/samus/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/samus/main.png'
     }
   },
     {
@@ -57,8 +53,7 @@ const ALL_CHARACTERS = [
     series: 'Metroid',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/dark_samus.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/dark_samus/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/dark_samus/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/dark_samus/main.png'
     }
   },
     {
@@ -68,8 +63,7 @@ const ALL_CHARACTERS = [
     series: 'Yoshi',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/yoshi.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/yoshi/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/yoshi/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/yoshi/main.png'
     }
   },
     {
@@ -79,8 +73,7 @@ const ALL_CHARACTERS = [
     series: 'Kirby',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/kirby.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/kirby/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/kirby/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/kirby/main.png'
     }
   },
     {
@@ -90,8 +83,7 @@ const ALL_CHARACTERS = [
     series: 'Star Fox',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/fox.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/fox/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/fox/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/fox/main.png'
     }
   },
     {
@@ -101,8 +93,7 @@ const ALL_CHARACTERS = [
     series: 'Pokémon',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/pikachu.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/pikachu/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/pikachu/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/pikachu/main.png'
     }
   },
     {
@@ -112,8 +103,7 @@ const ALL_CHARACTERS = [
     series: 'Super Mario',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/luigi.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/luigi/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/luigi/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/luigi/main.png'
     }
   },
     {
@@ -123,8 +113,7 @@ const ALL_CHARACTERS = [
     series: 'EarthBound',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/ness.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/ness/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/ness/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/ness/main.png'
     }
   },
 
@@ -136,8 +125,7 @@ const ALL_CHARACTERS = [
     series: 'F-Zero',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/captain_falcon.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/captain_falcon/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/captain_falcon/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/captain_falcon/main.png'
     }
   },
     {
@@ -147,8 +135,7 @@ const ALL_CHARACTERS = [
     series: 'Pokémon',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/purin.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/purin/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/purin/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/purin/main.png'
     }
   },
     {
@@ -158,8 +145,7 @@ const ALL_CHARACTERS = [
     series: 'Super Mario',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/peach.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/peach/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/peach/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/peach/main.png'
     }
   },
     {
@@ -169,8 +155,7 @@ const ALL_CHARACTERS = [
     series: 'Super Mario',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/daisy.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/daisy/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/daisy/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/daisy/main.png'
     }
   },
     {
@@ -180,8 +165,7 @@ const ALL_CHARACTERS = [
     series: 'Super Mario',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/koopa.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/koopa/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/koopa/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/koopa/main.png'
     }
   },
     {
@@ -191,8 +175,7 @@ const ALL_CHARACTERS = [
     series: 'Ice Climber',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/ice_climber.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/ice_climber/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/ice_climber/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/ice_climber/main.png'
     }
   },
     {
@@ -202,8 +185,7 @@ const ALL_CHARACTERS = [
     series: 'The Legend of Zelda',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/sheik.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/sheik/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/sheik/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/sheik/main.png'
     }
   },
     {
@@ -213,8 +195,7 @@ const ALL_CHARACTERS = [
     series: 'The Legend of Zelda',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/zelda.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/zelda/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/zelda/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/zelda/main.png'
     }
   },
     {
@@ -224,8 +205,7 @@ const ALL_CHARACTERS = [
     series: 'Super Mario',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/dr_mario.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/dr_mario/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/dr_mario/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/dr_mario/main.png'
     }
   },
     {
@@ -235,8 +215,7 @@ const ALL_CHARACTERS = [
     series: 'Pokémon',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/pichu.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/pichu/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/pichu/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/pichu/main.png'
     }
   },
     {
@@ -246,8 +225,7 @@ const ALL_CHARACTERS = [
     series: 'Star Fox',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/falco.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/falco/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/falco/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/falco/main.png'
     }
   },
 
@@ -259,8 +237,7 @@ const ALL_CHARACTERS = [
     series: 'Fire Emblem',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/marth.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/marth/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/marth/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/marth/main.png'
     }
   },
     {
@@ -270,8 +247,7 @@ const ALL_CHARACTERS = [
     series: 'Fire Emblem',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/lucina.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/lucina/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/lucina/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/lucina/main.png'
     }
   },
     {
@@ -281,8 +257,7 @@ const ALL_CHARACTERS = [
     series: 'The Legend of Zelda',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/young_link.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/young_link/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/young_link/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/young_link/main.png'
     }
   },
     {
@@ -292,8 +267,7 @@ const ALL_CHARACTERS = [
     series: 'The Legend of Zelda',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/ganondorf.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/ganondorf/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/ganondorf/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/ganondorf/main.png'
     }
   },
     {
@@ -303,8 +277,7 @@ const ALL_CHARACTERS = [
     series: 'Pokémon',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/mewtwo.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/mewtwo/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/mewtwo/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/mewtwo/main.png'
     }
   },
     {
@@ -314,8 +287,7 @@ const ALL_CHARACTERS = [
     series: 'Fire Emblem',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/roy.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/roy/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/roy/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/roy/main.png'
     }
   },
     {
@@ -325,8 +297,7 @@ const ALL_CHARACTERS = [
     series: 'Fire Emblem',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/chrom.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/chrom/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/chrom/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/chrom/main.png'
     }
   },
     {
@@ -336,8 +307,7 @@ const ALL_CHARACTERS = [
     series: 'Game & Watch',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/mr_game_and_watch.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/mr_game_and_watch/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/mr_game_and_watch/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/mr_game_and_watch/main.png'
     }
   },
     {
@@ -347,8 +317,7 @@ const ALL_CHARACTERS = [
     series: 'Kirby',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/meta_knight.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/meta_knight/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/meta_knight/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/meta_knight/main.png'
     }
   },
     {
@@ -358,8 +327,7 @@ const ALL_CHARACTERS = [
     series: 'Kid Icarus',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/pit.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/pit/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/pit/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/pit/main.png'
     }
   },
     {
@@ -369,8 +337,7 @@ const ALL_CHARACTERS = [
     series: 'Kid Icarus',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/dark_pit.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/dark_pit/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/dark_pit/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/dark_pit/main.png'
     }
   },
     {
@@ -380,8 +347,7 @@ const ALL_CHARACTERS = [
     series: 'Metroid',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/zero_suit_samus.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/zero_suit_samus/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/zero_suit_samus/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/zero_suit_samus/main.png'
     }
   },
     {
@@ -391,8 +357,7 @@ const ALL_CHARACTERS = [
     series: 'Wario',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/wario.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/wario/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/wario/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/wario/main.png'
     }
   },
 
@@ -404,8 +369,7 @@ const ALL_CHARACTERS = [
     series: 'Metal Gear',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/snake.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/snake/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/snake/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/snake/main.png'
     }
   },
     {
@@ -415,8 +379,7 @@ const ALL_CHARACTERS = [
     series: 'Fire Emblem',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/ike.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/ike/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/ike/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/ike/main.png'
     }
   },
     {
@@ -426,8 +389,7 @@ const ALL_CHARACTERS = [
     series: 'Pokémon',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/pokemon_trainer.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/pokemon_trainer/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/pokemon_trainer/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/pokemon_trainer/main.png'
     }
   },
     {
@@ -437,8 +399,7 @@ const ALL_CHARACTERS = [
     series: 'Donkey Kong',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/diddy_kong.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/diddy_kong/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/diddy_kong/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/diddy_kong/main.png'
     }
   },
     {
@@ -448,8 +409,7 @@ const ALL_CHARACTERS = [
     series: 'EarthBound',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/lucas.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/lucas/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/lucas/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/lucas/main.png'
     }
   },
     {
@@ -459,8 +419,7 @@ const ALL_CHARACTERS = [
     series: 'Sonic',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/sonic.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/sonic/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/sonic/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/sonic/main.png'
     }
   },
     {
@@ -470,8 +429,7 @@ const ALL_CHARACTERS = [
     series: 'Kirby',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/dedede.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/dedede/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/dedede/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/dedede/main.png'
     }
   },
     {
@@ -481,8 +439,7 @@ const ALL_CHARACTERS = [
     series: 'Pikmin',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/olimar.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/olimar/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/olimar/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/olimar/main.png'
     }
   },
     {
@@ -492,8 +449,7 @@ const ALL_CHARACTERS = [
     series: 'Pokémon',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/lucario.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/lucario/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/lucario/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/lucario/main.png'
     }
   },
     {
@@ -503,8 +459,7 @@ const ALL_CHARACTERS = [
     series: 'R.O.B.',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/robot.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/robot/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/robot/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/robot/main.png'
     }
   },
     {
@@ -514,8 +469,7 @@ const ALL_CHARACTERS = [
     series: 'The Legend of Zelda',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/toon_link.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/toon_link/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/toon_link/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/toon_link/main.png'
     }
   },
     {
@@ -525,8 +479,7 @@ const ALL_CHARACTERS = [
     series: 'Star Fox',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/wolf.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/wolf/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/wolf/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/wolf/main.png'
     }
   },
 
@@ -538,8 +491,7 @@ const ALL_CHARACTERS = [
     series: 'Animal Crossing',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/villager.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/villager/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/villager/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/villager/main.png'
     }
   },
     {
@@ -549,8 +501,7 @@ const ALL_CHARACTERS = [
     series: 'Mega Man',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/mega_man.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/mega_man/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/mega_man/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/mega_man/main.png'
     }
   },
     {
@@ -560,8 +511,7 @@ const ALL_CHARACTERS = [
     series: 'Wii Fit',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/wii_fit_trainer.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/wii_fit_trainer/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/wii_fit_trainer/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/wii_fit_trainer/main.png'
     }
   },
     {
@@ -571,8 +521,7 @@ const ALL_CHARACTERS = [
     series: 'Super Mario',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/rosalina_and_luma.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/rosalina_and_luma/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/rosalina_and_luma/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/rosalina_and_luma/main.png'
     }
   },
     {
@@ -582,8 +531,7 @@ const ALL_CHARACTERS = [
     series: 'Punch-Out!!',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/little_mac.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/little_mac/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/little_mac/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/little_mac/main.png'
     }
   },
     {
@@ -593,8 +541,7 @@ const ALL_CHARACTERS = [
     series: 'Pokémon',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/greninja.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/greninja/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/greninja/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/greninja/main.png'
     }
   },
     {
@@ -604,8 +551,7 @@ const ALL_CHARACTERS = [
     series: 'Mii',
     images: {
       icon: 'https://media.eventhubs.com/images/ssbu/character_header_mii-brawler_alt.jpg',
-      portrait: 'https://www.ssbwiki.com/images/e/e4/Mii_Brawler_SSBU.png?210ea',
-      full: 'https://www.ssbwiki.com/images/f/f1/Mii_Brawler_SSBU.png'
+      portrait: 'https://www.ssbwiki.com/images/e/e4/Mii_Brawler_SSBU.png?210ea'
     }
   },
     {
@@ -615,8 +561,7 @@ const ALL_CHARACTERS = [
     series: 'Mii',
     images: {
       icon: 'https://media.eventhubs.com/images/ssbu/character_header_mii-swordfighter_alt.jpg',
-      portrait: 'https://ssb.wiki.gallery/images/thumb/f/fa/Mii_Swordfighter_SSBU.png/1200px-Mii_Swordfighter_SSBU.png',
-      full: 'https://www.ssbwiki.com/images/0/0e/Mii_Swordfighter_SSBU.png'
+      portrait: 'https://ssb.wiki.gallery/images/thumb/f/fa/Mii_Swordfighter_SSBU.png/1200px-Mii_Swordfighter_SSBU.png'
     }
   },
     {
@@ -626,8 +571,7 @@ const ALL_CHARACTERS = [
     series: 'Mii',
     images: {
       icon: 'https://media.eventhubs.com/images/ssbu/character_header_mii-gunner_alt.jpg',
-      portrait: 'https://ssb.wiki.gallery/images/thumb/e/e5/Mii_Gunner_SSBU.png/1200px-Mii_Gunner_SSBU.png',
-      full: 'https://www.ssbwiki.com/images/1/11/Mii_Gunner_SSBU.png'
+      portrait: 'https://ssb.wiki.gallery/images/thumb/e/e5/Mii_Gunner_SSBU.png/1200px-Mii_Gunner_SSBU.png'
     }
   },
     {
@@ -637,8 +581,7 @@ const ALL_CHARACTERS = [
     series: 'Kid Icarus',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/palutena.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/palutena/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/palutena/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/palutena/main.png'
     }
   },
     {
@@ -648,8 +591,7 @@ const ALL_CHARACTERS = [
     series: 'Pac-Man',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/pac_man.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/pac_man/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/pac_man/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/pac_man/main.png'
     }
   },
     {
@@ -659,8 +601,7 @@ const ALL_CHARACTERS = [
     series: 'Fire Emblem',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/reflet.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/reflet/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/reflet/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/reflet/main.png'
     }
   },
     {
@@ -670,8 +611,7 @@ const ALL_CHARACTERS = [
     series: 'Xenoblade',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/shulk.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/shulk/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/shulk/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/shulk/main.png'
     }
   },
     {
@@ -681,8 +621,7 @@ const ALL_CHARACTERS = [
     series: 'Super Mario',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/bowser_jr.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/bowser_jr/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/bowser_jr/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/bowser_jr/main.png'
     }
   },
     {
@@ -692,8 +631,7 @@ const ALL_CHARACTERS = [
     series: 'Duck Hunt',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/duck_hunt.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/duck_hunt/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/duck_hunt/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/duck_hunt/main.png'
     }
   },
     {
@@ -703,8 +641,7 @@ const ALL_CHARACTERS = [
     series: 'Street Fighter',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/ryu.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/ryu/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/ryu/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/ryu/main.png'
     }
   },
     {
@@ -714,8 +651,7 @@ const ALL_CHARACTERS = [
     series: 'Street Fighter',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/ken.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/ken/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/ken/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/ken/main.png'
     }
   },
     {
@@ -725,8 +661,7 @@ const ALL_CHARACTERS = [
     series: 'Final Fantasy',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/cloud.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/cloud/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/cloud/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/cloud/main.png'
     }
   },
     {
@@ -736,8 +671,7 @@ const ALL_CHARACTERS = [
     series: 'Fire Emblem',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/kamui.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/kamui/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/kamui/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/kamui/main.png'
     }
   },
     {
@@ -747,8 +681,7 @@ const ALL_CHARACTERS = [
     series: 'Bayonetta',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/bayonetta.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/bayonetta/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/bayonetta/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/bayonetta/main.png'
     }
   },
     {
@@ -758,8 +691,7 @@ const ALL_CHARACTERS = [
     series: 'Splatoon',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/inkling.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/inkling/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/inkling/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/inkling/main.png'
     }
   },
     {
@@ -769,8 +701,7 @@ const ALL_CHARACTERS = [
     series: 'Metroid',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/ridley.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/ridley/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/ridley/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/ridley/main.png'
     }
   },
     {
@@ -780,8 +711,7 @@ const ALL_CHARACTERS = [
     series: 'Castlevania',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/simon.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/simon/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/simon/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/simon/main.png'
     }
   },
     {
@@ -791,8 +721,7 @@ const ALL_CHARACTERS = [
     series: 'Castlevania',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/richter.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/richter/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/richter/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/richter/main.png'
     }
   },
     {
@@ -802,8 +731,7 @@ const ALL_CHARACTERS = [
     series: 'Donkey Kong',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/king_k_rool.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/king_k_rool/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/king_k_rool/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/king_k_rool/main.png'
     }
   },
     {
@@ -813,8 +741,7 @@ const ALL_CHARACTERS = [
     series: 'Animal Crossing',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/shizue.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/shizue/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/shizue/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/shizue/main.png'
     }
   },
     {
@@ -824,8 +751,7 @@ const ALL_CHARACTERS = [
     series: 'Pokémon',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/gaogaen.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/gaogaen/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/gaogaen/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/gaogaen/main.png'
     }
   },
     {
@@ -835,8 +761,7 @@ const ALL_CHARACTERS = [
     series: 'Super Mario',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/packun_flower.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/piranha_plant/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/piranha_plant/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/piranha_plant/main.png'
     }
   },
     {
@@ -846,8 +771,7 @@ const ALL_CHARACTERS = [
     series: 'Persona',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/joker.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/joker/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/joker/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/joker/main.png'
     }
   },
     {
@@ -857,8 +781,7 @@ const ALL_CHARACTERS = [
     series: 'Dragon Quest',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/dq_hero.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/dq_hero/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/dq_hero/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/dq_hero/main.png'
     }
   },
     {
@@ -868,8 +791,7 @@ const ALL_CHARACTERS = [
     series: 'Banjo-Kazooie',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/banjo_and_kazooie.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/banjo_and_kazooie/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/banjo_and_kazooie/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/banjo_and_kazooie/main.png'
     }
   },
     {
@@ -879,8 +801,7 @@ const ALL_CHARACTERS = [
     series: 'Fatal Fury',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/terry.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/terry/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/terry/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/terry/main.png'
     }
   },
     {
@@ -890,8 +811,7 @@ const ALL_CHARACTERS = [
     series: 'Fire Emblem',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/byleth.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/byleth/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/byleth/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/byleth/main.png'
     }
   },
     {
@@ -901,8 +821,7 @@ const ALL_CHARACTERS = [
     series: 'ARMS',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/minmin.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/minmin/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/minmin/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/minmin/main.png'
     }
   },
     {
@@ -912,8 +831,7 @@ const ALL_CHARACTERS = [
     series: 'Minecraft',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/steve.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/steve/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/steve/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/steve/main.png'
     }
   },
     {
@@ -923,8 +841,7 @@ const ALL_CHARACTERS = [
     series: 'Final Fantasy',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/sephiroth.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/sephiroth/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/sephiroth/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/sephiroth/main.png'
     }
   },
     {
@@ -934,8 +851,7 @@ const ALL_CHARACTERS = [
     series: 'Xenoblade',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/homura.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/homura/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/homura/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/homura/main.png'
     }
   },
     {
@@ -945,8 +861,7 @@ const ALL_CHARACTERS = [
     series: 'Tekken',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/kazuya.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/kazuya/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/kazuya/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/kazuya/main.png'
     }
   },
     {
@@ -956,8 +871,7 @@ const ALL_CHARACTERS = [
     series: 'Kingdom Hearts',
     images: {
       icon: 'https://www.smashbros.com/assets_v2/img/fighter/thumb_a/sora.png',
-      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/sora/main.png',
-      full: 'https://www.smashbros.com/assets_v2/img/fighter/sora/main2.png'
+      portrait: 'https://www.smashbros.com/assets_v2/img/fighter/sora/main.png'
     }
   }
 ];

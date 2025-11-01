@@ -2,16 +2,16 @@
 // Configuration Firebase
 // ===================================
 
-// TODO: Remplacez ces valeurs par vos vraies clés Firebase
+// Configuration Firebase - Remplacez par vos vraies clés
 // Voir le fichier firebase.md pour les instructions détaillées
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY_HERE",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyAZecgIeAfSCWmbGzMok0K5fr3q5MDLvz0",
+  authDomain: "smash-ultimate-tracker-ded33.firebaseapp.com",
+  projectId: "smash-ultimate-tracker-ded33",
+  storageBucket: "smash-ultimate-tracker-ded33.firebasestorage.app",
+  messagingSenderId: "967060921505",
+  appId: "1:967060921505:web:532c2ec17c1e368562e4e0"
 };
 
 // Initialisation de Firebase

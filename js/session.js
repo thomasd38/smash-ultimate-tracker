@@ -17,8 +17,10 @@ document.addEventListener('DOMContentLoaded', function() {
     currentSessionId = urlParams.get('id');
 
     if (!currentSessionId) {
-        alert('❌ Aucune session spécifiée');
-        window.location.href = 'index.html';
+        showError('Aucune session spécifiée');
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 1000);
         return;
     }
 
@@ -57,8 +59,10 @@ async function loadSessionData() {
         const sessionDoc = await db.collection('sessions').doc(currentSessionId).get();
         
         if (!sessionDoc.exists) {
-            alert('❌ Session introuvable');
-            window.location.href = 'index.html';
+            showError('Session introuvable');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1000);
             return;
         }
         
@@ -75,7 +79,7 @@ async function loadSessionData() {
         
     } catch (error) {
         console.error('Erreur lors du chargement de la session:', error);
-        alert('❌ Erreur lors du chargement de la session');
+        showError('Erreur lors du chargement de la session');
     }
 }
 
@@ -328,7 +332,7 @@ function calculatePlayerStats() {
 
 function addMatch() {
     // TODO: Implémenter l'ajout de match
-    alert('🚧 Fonctionnalité en cours de développement');
+    showInfo('Fonctionnalité en cours de développement');
 }
 
 // Ouvrir la modale d'édition de session
@@ -442,7 +446,7 @@ async function handleEditSession(e) {
         await loadSessionData();
 
         // Afficher un message de succès
-        alert('✅ Session mise à jour avec succès !');
+        showSuccess('Session mise à jour avec succès !');
 
     } catch (error) {
         console.error('❌ Erreur lors de la mise à jour de la session:', error);
@@ -452,40 +456,42 @@ async function handleEditSession(e) {
 }
 
 // Gérer la suppression de session
-async function handleDeleteSession() {
-    const confirmDelete = confirm(
-        `⚠️ Êtes-vous sûr de vouloir supprimer la session "${currentSession.name}" ?\n\n` +
-        'Cette action supprimera également tous les matchs associés et ne peut pas être annulée.'
+function handleDeleteSession() {
+    showConfirm(
+        `Êtes-vous sûr de vouloir supprimer la session "${currentSession.name}" ? Cette action supprimera également tous les matchs associés.`,
+        async () => {
+            try {
+                // Supprimer tous les matchs de la session
+                const matchesSnapshot = await db.collection('sessions')
+                    .doc(currentSessionId)
+                    .collection('matches')
+                    .get();
+
+                const deletePromises = matchesSnapshot.docs.map(doc => doc.ref.delete());
+                await Promise.all(deletePromises);
+
+                // Supprimer la session
+                await db.collection('sessions').doc(currentSessionId).delete();
+
+                console.log('✅ Session supprimée');
+
+                // Fermer la modale
+                const modal = bootstrap.Modal.getInstance(document.getElementById('editSessionModal'));
+                if (modal) modal.hide();
+
+                // Afficher un message de succès
+                showSuccess('Session supprimée avec succès !');
+
+                // Rediriger vers l'accueil après un court délai
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1000);
+
+            } catch (error) {
+                console.error('❌ Erreur lors de la suppression de la session:', error);
+                showError('Erreur lors de la suppression de la session');
+            }
+        }
     );
-
-    if (!confirmDelete) return;
-
-    try {
-        // Supprimer tous les matchs de la session
-        const matchesSnapshot = await db.collection('sessions')
-            .doc(currentSessionId)
-            .collection('matches')
-            .get();
-
-        const deletePromises = matchesSnapshot.docs.map(doc => doc.ref.delete());
-        await Promise.all(deletePromises);
-
-        // Supprimer la session
-        await db.collection('sessions').doc(currentSessionId).delete();
-
-        console.log('✅ Session supprimée');
-
-        // Fermer la modale
-        const modal = bootstrap.Modal.getInstance(document.getElementById('editSessionModal'));
-        if (modal) modal.hide();
-
-        // Rediriger vers l'accueil
-        alert('✅ Session supprimée avec succès !');
-        window.location.href = 'index.html';
-
-    } catch (error) {
-        console.error('❌ Erreur lors de la suppression de la session:', error);
-        alert('❌ Erreur lors de la suppression de la session');
-    }
 }
 

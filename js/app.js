@@ -166,7 +166,7 @@ async function handleCreateSession(e) {
         loadSessions();
 
         // Afficher un message de succès
-        alert('✅ Session créée avec succès !');
+        showSuccess('Session créée avec succès !');
 
     } catch (error) {
         console.error('❌ Erreur lors de la création de la session:', error);
@@ -280,77 +280,13 @@ function viewSession(sessionId) {
 // ===================================
 
 // Handler pour initialiser la base de données
-async function handleInitDatabase() {
-    const dbStatus = document.getElementById('db-status');
-
-    dbStatus.innerHTML = `
-        <div class="alert alert-info">
-            <i class="fas fa-spinner fa-spin"></i> Initialisation en cours...
-        </div>
-    `;
-
-    try {
-        await initializeDatabase();
-
-        dbStatus.innerHTML = `
-            <div class="alert alert-success">
-                <i class="fas fa-check-circle"></i>
-                <strong>✅ Base de données initialisée avec succès !</strong>
-                <br>Rechargez la page pour voir les données.
-            </div>
-        `;
-
-        // Recharger les sessions après 2 secondes
-        setTimeout(() => {
-            loadSessions();
-        }, 2000);
-    } catch (error) {
-        dbStatus.innerHTML = `
-            <div class="alert alert-danger">
-                <i class="fas fa-exclamation-triangle"></i>
-                <strong>❌ Erreur lors de l'initialisation</strong>
-                <br><code>${error.message}</code>
-            </div>
-        `;
-    }
+function handleInitDatabase() {
+    initializeDatabase();
 }
 
 // Handler pour vider la base de données
-async function handleClearDatabase() {
-    const dbStatus = document.getElementById('db-status');
-
-    dbStatus.innerHTML = `
-        <div class="alert alert-warning">
-            <i class="fas fa-spinner fa-spin"></i> Suppression en cours...
-        </div>
-    `;
-
-    try {
-        const success = await clearDatabase();
-
-        if (success) {
-            dbStatus.innerHTML = `
-                <div class="alert alert-success">
-                    <i class="fas fa-check-circle"></i>
-                    <strong>✅ Base de données vidée !</strong>
-                    <br>Toutes les données ont été supprimées.
-                </div>
-            `;
-
-            // Recharger les sessions
-            setTimeout(() => {
-                loadSessions();
-            }, 1000);
-        }
-    } catch (error) {
-        dbStatus.innerHTML = `
-            <div class="alert alert-danger">
-                <i class="fas fa-exclamation-triangle"></i>
-                <strong>❌ Erreur lors de la suppression</strong>
-                <br><code>${error.message}</code>
-            </div>
-        `;
-    }
+function handleClearDatabase() {
+    clearDatabase();
 }
 
 // ===================================

@@ -155,91 +155,82 @@ async function createExampleSession() {
 }
 
 // Initialiser toute la base de données
-async function initializeDatabase() {
-  const confirm = window.confirm(
-    'Voulez-vous initialiser la base de données ?\n\n' +
-    `Cela va créer :\n` +
-    `- ${initialUsers.length} utilisateurs\n` +
-    `- ${initialCharacters.length} personnages\n` +
-    `- 1 session exemple avec 4 matchs\n\n` +
-    'Continuer ?'
+function initializeDatabase() {
+  showConfirm(
+    `Voulez-vous initialiser la base de données ? Cela va créer ${initialUsers.length} utilisateurs, ${initialCharacters.length} personnages et 1 session exemple avec 4 matchs.`,
+    async () => {
+      const startTime = Date.now();
+
+      // Initialiser les utilisateurs
+      const usersSuccess = await initUsers();
+
+      // Initialiser les personnages
+      const charactersSuccess = await initCharacters();
+
+      // Créer une session exemple
+      const sessionSuccess = await createExampleSession();
+
+      const endTime = Date.now();
+      const duration = ((endTime - startTime) / 1000).toFixed(2);
+
+      if (usersSuccess && charactersSuccess && sessionSuccess) {
+        showSuccess(`Base de données initialisée avec succès ! (${duration}s)`);
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      } else {
+        showWarning('Certaines données n\'ont pas pu être créées.');
+      }
+    }
   );
-
-  if (!confirm) {
-    return;
-  }
-
-  const startTime = Date.now();
-
-  // Initialiser les utilisateurs
-  const usersSuccess = await initUsers();
-
-  // Initialiser les personnages
-  const charactersSuccess = await initCharacters();
-
-  // Créer une session exemple
-  const sessionSuccess = await createExampleSession();
-
-  const endTime = Date.now();
-  const duration = ((endTime - startTime) / 1000).toFixed(2);
-
-  if (usersSuccess && charactersSuccess && sessionSuccess) {
-    alert(`✅ Base de données initialisée avec succès !\n\nTemps: ${duration}s\n\nRechargez la page pour voir les données.`);
-  } else {
-    alert('⚠️ Certaines données n\'ont pas pu être créées.');
-  }
 }
 
 // Fonction pour vider la base de données
-async function clearDatabase() {
-  const confirm = window.confirm(
-    '⚠️ VIDER LA BASE DE DONNÉES ⚠️\n\n' +
-    'Voulez-vous vraiment SUPPRIMER toutes les données ?\n\n' +
-    'Cette action est IRRÉVERSIBLE !'
-  );
+function clearDatabase() {
+  showConfirm(
+    'Voulez-vous vraiment SUPPRIMER toutes les données ? Cette action est IRRÉVERSIBLE !',
+    async () => {
+      try {
+        let deletedCount = 0;
 
-  if (!confirm) {
-    return false;
-  }
+        // Supprimer les utilisateurs
+        const usersSnapshot = await db.collection('users').get();
+        for (const doc of usersSnapshot.docs) {
+          await doc.ref.delete();
+          deletedCount++;
+        }
 
-  try {
-    let deletedCount = 0;
+        // Supprimer les personnages
+        const charactersSnapshot = await db.collection('characters').get();
+        for (const doc of charactersSnapshot.docs) {
+          await doc.ref.delete();
+          deletedCount++;
+        }
 
-    // Supprimer les utilisateurs
-    const usersSnapshot = await db.collection('users').get();
-    for (const doc of usersSnapshot.docs) {
-      await doc.ref.delete();
-      deletedCount++;
-    }
+        // Supprimer les sessions et leurs matchs
+        const sessionsSnapshot = await db.collection('sessions').get();
+        for (const sessionDoc of sessionsSnapshot.docs) {
+          // Supprimer les matchs de la session
+          const matchesSnapshot = await sessionDoc.ref.collection('matches').get();
+          for (const matchDoc of matchesSnapshot.docs) {
+            await matchDoc.ref.delete();
+            deletedCount++;
+          }
 
-    // Supprimer les personnages
-    const charactersSnapshot = await db.collection('characters').get();
-    for (const doc of charactersSnapshot.docs) {
-      await doc.ref.delete();
-      deletedCount++;
-    }
+          // Supprimer la session
+          await sessionDoc.ref.delete();
+          deletedCount++;
+        }
 
-    // Supprimer les sessions et leurs matchs
-    const sessionsSnapshot = await db.collection('sessions').get();
-    for (const sessionDoc of sessionsSnapshot.docs) {
-      // Supprimer les matchs de la session
-      const matchesSnapshot = await sessionDoc.ref.collection('matches').get();
-      for (const matchDoc of matchesSnapshot.docs) {
-        await matchDoc.ref.delete();
-        deletedCount++;
+        showSuccess(`Base de données vidée ! ${deletedCount} documents supprimés.`);
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      } catch (error) {
+        showError('Erreur lors de la suppression de la base de données.');
       }
-
-      // Supprimer la session
-      await sessionDoc.ref.delete();
-      deletedCount++;
     }
-
-    alert(`✅ Base de données vidée !\n\n${deletedCount} documents supprimés.`);
-    return true;
-  } catch (error) {
-    alert('❌ Erreur lors de la suppression de la base de données.');
-    return false;
-  }
+  );
 }
 
 // Exposer les fonctions globalement pour pouvoir les appeler depuis la console

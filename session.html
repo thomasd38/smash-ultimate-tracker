@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smash Ultimate Tracker</title>
+    <title>Session - Smash Ultimate Tracker</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -22,60 +22,101 @@
 
     <!-- Main Content -->
     <div class="container mt-4">
-        <!-- Header -->
+        <!-- Session Header -->
         <div class="row mb-4">
-            <div class="col-12 d-flex justify-content-between align-items-center">
-                <h1>
-                    <i class="fas fa-history text-warning"></i>
-                    Dernières Sessions
-                </h1>
-                <button class="btn btn-primary btn-lg" id="btn-new-session">
-                    <i class="fas fa-plus"></i> Nouvelle Session
-                </button>
-            </div>
-        </div>
-
-        <!-- Sessions List (will be populated dynamically) -->
-        <div class="row">
             <div class="col-12">
-                <div id="sessions-list" class="row">
-                    <!-- Sessions will be loaded here -->
-                    <div class="col-12 text-center text-muted py-5">
-                        <i class="fas fa-inbox fa-3x mb-3"></i>
-                        <p>Aucune session pour le moment. Créez-en une pour commencer !</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <a href="index.html" class="btn btn-outline-secondary mb-2">
+                            <i class="fas fa-arrow-left"></i> Retour
+                        </a>
+                        <h1 id="session-name">
+                            <i class="fas fa-gamepad text-warning"></i>
+                            <span>Chargement...</span>
+                        </h1>
+                        <p class="text-muted" id="session-date">
+                            <i class="fas fa-calendar"></i> <span>-</span>
+                        </p>
+                    </div>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <button class="btn btn-outline-secondary" id="btn-edit-session">
+                            <i class="fas fa-edit"></i> Modifier
+                        </button>
+                        <button class="btn btn-primary btn-lg" id="btn-add-match">
+                            <i class="fas fa-plus"></i> Ajouter un match
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Hidden elements for auth system -->
-        <div id="auth-status" style="display: none;"></div>
-        <div id="firebase-status" style="display: none;"></div>
-        <div id="db-status" style="display: none;"></div>
-        <div id="test-results" style="display: none;"></div>
+        <!-- Podium Section -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="mb-0">
+                            <i class="fas fa-trophy"></i> Classement de la session
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="podium-container" class="row text-center">
+                            <!-- Podium will be generated here -->
+                            <div class="col-12 text-muted py-4">
+                                <i class="fas fa-spinner fa-spin fa-2x"></i>
+                                <p class="mt-2">Chargement du classement...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Matches List -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-list"></i> Matchs de la session
+                            <span class="badge bg-light text-dark ms-2" id="match-count">0</span>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="matches-list">
+                            <!-- Matches will be loaded here -->
+                            <div class="text-center text-muted py-4">
+                                <i class="fas fa-spinner fa-spin fa-2x"></i>
+                                <p class="mt-2">Chargement des matchs...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- New Session Modal -->
-    <div class="modal fade" id="newSessionModal" tabindex="-1" aria-labelledby="newSessionModalLabel" aria-hidden="true">
+    <!-- Edit Session Modal -->
+    <div class="modal fade" id="editSessionModal" tabindex="-1" aria-labelledby="editSessionModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title" id="newSessionModalLabel">
-                        <i class="fas fa-plus-circle"></i> Nouvelle Session
+                <div class="modal-header bg-warning text-dark">
+                    <h5 class="modal-title" id="editSessionModalLabel">
+                        <i class="fas fa-edit"></i> Modifier la Session
                     </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="new-session-form">
+                    <form id="edit-session-form">
                         <!-- Nom de la session -->
                         <div class="mb-3">
-                            <label for="session-name-input" class="form-label">
+                            <label for="edit-session-name-input" class="form-label">
                                 <i class="fas fa-gamepad"></i> Nom de la session
                             </label>
                             <input
                                 type="text"
                                 class="form-control"
-                                id="session-name-input"
+                                id="edit-session-name-input"
                                 placeholder="Ex: Soirée Smash du vendredi"
                                 required
                             >
@@ -87,13 +128,13 @@
                                 <i class="fas fa-network-wired"></i> Type de session
                             </label>
                             <div class="btn-group w-100" role="group">
-                                <input type="radio" class="btn-check" name="session-type" id="session-type-lan" value="lan" checked>
-                                <label class="btn btn-outline-primary" for="session-type-lan">
+                                <input type="radio" class="btn-check" name="edit-session-type" id="edit-session-type-lan" value="lan">
+                                <label class="btn btn-outline-warning" for="edit-session-type-lan">
                                     <i class="fas fa-home"></i> LAN (Local)
                                 </label>
 
-                                <input type="radio" class="btn-check" name="session-type" id="session-type-online" value="online">
-                                <label class="btn btn-outline-primary" for="session-type-online">
+                                <input type="radio" class="btn-check" name="edit-session-type" id="edit-session-type-online" value="online">
+                                <label class="btn btn-outline-warning" for="edit-session-type-online">
                                     <i class="fas fa-wifi"></i> Online
                                 </label>
                             </div>
@@ -104,7 +145,7 @@
                             <label class="form-label">
                                 <i class="fas fa-users"></i> Joueurs présents
                             </label>
-                            <div id="players-checkboxes" class="border rounded p-3" style="max-height: 200px; overflow-y: auto;">
+                            <div id="edit-players-checkboxes" class="border rounded p-3" style="max-height: 200px; overflow-y: auto;">
                                 <!-- Les joueurs seront chargés ici -->
                                 <div class="text-center text-muted">
                                     <i class="fas fa-spinner fa-spin"></i> Chargement des joueurs...
@@ -113,11 +154,14 @@
                             <small class="text-muted">Sélectionnez les joueurs qui participent à cette session</small>
                         </div>
 
-                        <div id="session-error" class="alert alert-danger" style="display: none;"></div>
+                        <div id="edit-session-error" class="alert alert-danger" style="display: none;"></div>
 
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-check"></i> Créer la session
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-warning">
+                                <i class="fas fa-save"></i> Enregistrer les modifications
+                            </button>
+                            <button type="button" class="btn btn-outline-danger" id="btn-delete-session">
+                                <i class="fas fa-trash"></i> Supprimer la session
                             </button>
                         </div>
                     </form>
@@ -139,10 +183,10 @@
                     <form id="login-form">
                         <div class="mb-3">
                             <label for="password-input" class="form-label">Mot de passe</label>
-                            <input
-                                type="password"
-                                class="form-control"
-                                id="password-input"
+                            <input 
+                                type="password" 
+                                class="form-control" 
+                                id="password-input" 
                                 placeholder="Entrez votre mot de passe"
                                 required
                                 autocomplete="current-password"
@@ -168,18 +212,18 @@
     <!-- Footer -->
     <footer class="bg-dark text-white text-center py-3 mt-5">
         <p class="mb-0">
-            <i class="fas fa-gamepad"></i> Smash Ultimate Tracker -
+            <i class="fas fa-gamepad"></i> Smash Ultimate Tracker - 
             Fait avec <i class="fas fa-heart text-danger"></i> pour les fans de Smash Bros
         </p>
     </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
+    
     <!-- Firebase SDK (version 10.7.1 - compat pour compatibilité) -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-
+    
     <!-- Firebase Configuration -->
     <script src="js/firebase-config.js"></script>
 
@@ -195,9 +239,9 @@
     <!-- Authentication Script -->
     <script src="js/auth.js"></script>
 
-    <!-- Custom JS -->
-    <script src="js/app.js"></script>
-
+    <!-- Session Page Script -->
+    <script src="js/session.js"></script>
+    
     <!-- Initialize Navbar -->
     <script>
         initNavbar('accueil');

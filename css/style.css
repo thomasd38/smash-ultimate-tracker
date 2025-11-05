@@ -257,3 +257,67 @@ footer i.fa-heart {
     }
 }
 
+/* ===================================
+   Session Page Styles
+   =================================== */
+
+/* Podium */
+#podium-container .card {
+    transition: all 0.3s ease;
+}
+
+#podium-container .card:hover {
+    transform: translateY(-10px) scale(1.05);
+}
+
+#podium-container .border-warning {
+    box-shadow: 0 0 20px rgba(255, 193, 7, 0.5);
+}
+
+/* Match Cards */
+#matches-list .card {
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+}
+
+#matches-list .card:hover {
+    border-left-color: var(--primary-color);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Winner Highlight */
+.text-success.fw-bold {
+    text-shadow: 0 0 10px rgba(25, 135, 84, 0.3);
+}
+
+/* Progress Bar Animation */
+.progress-bar {
+    transition: width 1s ease-in-out;
+}
+
+/* Responsive adjustments for session page */
+@media (max-width: 768px) {
+    #session-name h1 {
+        font-size: 1.5rem;
+    }
+
+    .btn-add-match {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    #matches-list .card-body .row {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    #podium-container .col-12 {
+        margin-bottom: 15px;
+    }
+
+    .badge.fs-6 {
+        font-size: 0.8rem !important;
+    }
+}
+

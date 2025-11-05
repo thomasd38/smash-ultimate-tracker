@@ -123,6 +123,18 @@ function hideAllContent() {
     btnNewSession.style.display = 'none';
   }
 
+  // Masquer le bouton "Modifier session" (page session.html)
+  const btnEditSession = document.getElementById('btn-edit-session');
+  if (btnEditSession) {
+    btnEditSession.style.display = 'none';
+  }
+
+  // Masquer le bouton "Ajouter un match" (page session.html)
+  const btnAddMatch = document.getElementById('btn-add-match');
+  if (btnAddMatch) {
+    btnAddMatch.style.display = 'none';
+  }
+
   // Masquer la section de test Firebase
   const testSection = document.querySelector('.card .card-header.bg-dark');
   if (testSection && testSection.closest('.card')) {
@@ -150,6 +162,18 @@ function showAdminContent() {
     btnNewSession.style.display = 'inline-block';
   }
 
+  // Afficher le bouton "Modifier session" (page session.html)
+  const btnEditSession = document.getElementById('btn-edit-session');
+  if (btnEditSession) {
+    btnEditSession.style.display = 'inline-block';
+  }
+
+  // Afficher le bouton "Ajouter un match" (page session.html)
+  const btnAddMatch = document.getElementById('btn-add-match');
+  if (btnAddMatch) {
+    btnAddMatch.style.display = 'inline-block';
+  }
+
   // Afficher la section de test Firebase
   const testSection = document.querySelector('.card .card-header.bg-dark');
   if (testSection && testSection.closest('.card')) {
@@ -175,6 +199,25 @@ function showUserContent() {
       btnNewSession.style.display = 'inline-block';
     } else {
       btnNewSession.style.display = 'none';
+    }
+  }
+
+  // Masquer les boutons d'édition pour les users (page session.html)
+  const btnEditSession = document.getElementById('btn-edit-session');
+  if (btnEditSession) {
+    if (authLevel && authLevel.level === 'admin') {
+      btnEditSession.style.display = 'inline-block';
+    } else {
+      btnEditSession.style.display = 'none';
+    }
+  }
+
+  const btnAddMatch = document.getElementById('btn-add-match');
+  if (btnAddMatch) {
+    if (authLevel && authLevel.level === 'admin') {
+      btnAddMatch.style.display = 'inline-block';
+    } else {
+      btnAddMatch.style.display = 'none';
     }
   }
 

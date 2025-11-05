@@ -24,7 +24,13 @@ function initEventListeners() {
     // Bouton nouvelle session
     const btnNewSession = document.getElementById('btn-new-session');
     if (btnNewSession) {
-        btnNewSession.addEventListener('click', createNewSession);
+        btnNewSession.addEventListener('click', openNewSessionModal);
+    }
+
+    // Formulaire nouvelle session
+    const newSessionForm = document.getElementById('new-session-form');
+    if (newSessionForm) {
+        newSessionForm.addEventListener('submit', handleCreateSession);
     }
 
     // Bouton voir les sessions
@@ -60,31 +66,113 @@ function initEventListeners() {
 // Fonctions Firebase - Sessions
 // ===================================
 
-// Créer une nouvelle session
-function createNewSession() {
-    const sessionName = prompt('Nom de la session :');
-    
+// Ouvrir la modale de nouvelle session
+async function openNewSessionModal() {
+    // Charger les joueurs
+    await loadPlayersForModal('players-checkboxes');
+
+    // Ouvrir la modale
+    const modal = new bootstrap.Modal(document.getElementById('newSessionModal'));
+    modal.show();
+}
+
+// Charger les joueurs dans la modale
+async function loadPlayersForModal(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    try {
+        const usersSnapshot = await db.collection('users').orderBy('name').get();
+
+        if (usersSnapshot.empty) {
+            container.innerHTML = '<p class="text-muted mb-0">Aucun joueur disponible</p>';
+            return;
+        }
+
+        container.innerHTML = usersSnapshot.docs.map(doc => {
+            const user = doc.data();
+            return `
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="${doc.id}" id="player-${doc.id}">
+                    <label class="form-check-label" for="player-${doc.id}">
+                        ${user.name}
+                    </label>
+                </div>
+            `;
+        }).join('');
+
+    } catch (error) {
+        console.error('Erreur lors du chargement des joueurs:', error);
+        container.innerHTML = '<p class="text-danger mb-0">Erreur lors du chargement des joueurs</p>';
+    }
+}
+
+// Gérer la création de session
+async function handleCreateSession(e) {
+    e.preventDefault();
+
+    const sessionNameInput = document.getElementById('session-name-input');
+    const sessionTypeInputs = document.getElementsByName('session-type');
+    const playersCheckboxes = document.querySelectorAll('#players-checkboxes input[type="checkbox"]:checked');
+    const errorDiv = document.getElementById('session-error');
+
+    // Récupérer les valeurs
+    const sessionName = sessionNameInput.value.trim();
+    let sessionType = 'lan';
+    for (const input of sessionTypeInputs) {
+        if (input.checked) {
+            sessionType = input.value;
+            break;
+        }
+    }
+
+    const playerIds = Array.from(playersCheckboxes).map(cb => cb.value);
+
+    // Validation
     if (!sessionName) {
-        alert('❌ Nom de session requis');
+        errorDiv.textContent = 'Le nom de la session est requis';
+        errorDiv.style.display = 'block';
         return;
     }
-    
-    const sessionData = {
-        name: sessionName,
-        date: new Date().toISOString(),
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    };
-    
-    db.collection('sessions').add(sessionData)
-        .then((docRef) => {
-            console.log('✅ Session créée avec ID:', docRef.id);
-            alert(`✅ Session "${sessionName}" créée avec succès !`);
-            loadSessions(); // Recharger la liste
-        })
-        .catch((error) => {
-            console.error('❌ Erreur lors de la création de la session:', error);
-            alert('❌ Erreur lors de la création de la session');
+
+    if (playerIds.length === 0) {
+        errorDiv.textContent = 'Veuillez sélectionner au moins un joueur';
+        errorDiv.style.display = 'block';
+        return;
+    }
+
+    errorDiv.style.display = 'none';
+
+    try {
+        // Créer la session dans Firestore
+        const docRef = await db.collection('sessions').add({
+            name: sessionName,
+            sessionType: sessionType,
+            playerIds: playerIds,
+            date: new Date().toISOString(),
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
         });
+
+        console.log('✅ Session créée avec ID:', docRef.id);
+
+        // Fermer la modale
+        const modal = bootstrap.Modal.getInstance(document.getElementById('newSessionModal'));
+        modal.hide();
+
+        // Réinitialiser le formulaire
+        document.getElementById('new-session-form').reset();
+
+        // Recharger la liste des sessions
+        loadSessions();
+
+        // Afficher un message de succès
+        alert('✅ Session créée avec succès !');
+
+    } catch (error) {
+        console.error('❌ Erreur lors de la création de la session:', error);
+        errorDiv.textContent = 'Erreur lors de la création de la session';
+        errorDiv.style.display = 'block';
+    }
 }
 
 // Charger toutes les sessions
@@ -184,9 +272,7 @@ function createSessionCard(sessionId, sessionData) {
 
 // Voir les détails d'une session
 function viewSession(sessionId) {
-    console.log('📋 Affichage de la session:', sessionId);
-    alert(`Session ID: ${sessionId}\n\nCette fonctionnalité sera implémentée prochainement !`);
-    // TODO: Implémenter la page de détails de session
+    window.location.href = `session.html?id=${sessionId}`;
 }
 
 // ===================================

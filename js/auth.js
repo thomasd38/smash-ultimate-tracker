@@ -5,7 +5,7 @@
 // Hash SHA256 des mots de passe autorisés
 const AUTH_LEVELS = {
   ADMIN: {
-    hash: '0cacf1bd6cdc7fcf265d046d6c8d47a2bd621f4c75df6b0574e3dca86c180608',
+    hash: 'a26ae7f52a53796c9e1a20f8fbdeb9d845766cc7ab94ec55deb3b64f84df6158',
     level: 'admin',
     name: 'Administrateur'
   },
@@ -116,13 +116,16 @@ function hideAllContent() {
   if (dbManagement) {
     dbManagement.style.display = 'none';
   }
-  
-  // Masquer le bouton "Nouvelle session"
+
+  // Masquer toute la card "Nouvelle session"
   const btnNewSession = document.getElementById('btn-new-session');
   if (btnNewSession) {
-    btnNewSession.style.display = 'none';
+    const newSessionCard = btnNewSession.closest('.card');
+    if (newSessionCard) {
+      newSessionCard.style.display = 'none';
+    }
   }
-  
+
   // Masquer la section de test Firebase
   const testSection = document.querySelector('.card .card-header.bg-dark');
   if (testSection && testSection.closest('.card')) {
@@ -137,7 +140,16 @@ function showAdminContent() {
   if (dbManagement) {
     dbManagement.style.display = 'block';
   }
-  
+
+  // Afficher toute la card "Nouvelle session"
+  const btnNewSession = document.getElementById('btn-new-session');
+  if (btnNewSession) {
+    const newSessionCard = btnNewSession.closest('.card');
+    if (newSessionCard) {
+      newSessionCard.style.display = 'block';
+    }
+  }
+
   // Afficher la section de test Firebase
   const testSection = document.querySelector('.card .card-header.bg-dark');
   if (testSection && testSection.closest('.card')) {
@@ -147,16 +159,19 @@ function showAdminContent() {
 
 // Afficher le contenu utilisateur
 function showUserContent() {
-  // Les sessions sont toujours visibles
-  // Mais on masque le bouton "Nouvelle session" pour les users
+  // Les sessions sont toujours visibles pour les users
+  // Mais on masque toute la card "Nouvelle session" pour les users
   const authLevel = getCurrentAuthLevel();
   const btnNewSession = document.getElementById('btn-new-session');
-  
+
   if (btnNewSession) {
-    if (authLevel && authLevel.level === 'admin') {
-      btnNewSession.style.display = 'inline-block';
-    } else {
-      btnNewSession.style.display = 'none';
+    const newSessionCard = btnNewSession.closest('.card');
+    if (newSessionCard) {
+      if (authLevel && authLevel.level === 'admin') {
+        newSessionCard.style.display = 'block';
+      } else {
+        newSessionCard.style.display = 'none';
+      }
     }
   }
 }
@@ -252,8 +267,6 @@ async function handleLogin(event) {
     // Mettre à jour l'interface
     updateUIForAuthLevel();
     
-    // Afficher un message de succès
-    alert(`✅ Connexion réussie en tant que ${authLevel.name} !`);
   } else {
     // Mot de passe incorrect
     errorDiv.textContent = 'Mot de passe incorrect';

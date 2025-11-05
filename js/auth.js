@@ -117,19 +117,22 @@ function hideAllContent() {
     dbManagement.style.display = 'none';
   }
 
-  // Masquer toute la card "Nouvelle session"
+  // Masquer le bouton "Nouvelle session"
   const btnNewSession = document.getElementById('btn-new-session');
   if (btnNewSession) {
-    const newSessionCard = btnNewSession.closest('.card');
-    if (newSessionCard) {
-      newSessionCard.style.display = 'none';
-    }
+    btnNewSession.style.display = 'none';
   }
 
   // Masquer la section de test Firebase
   const testSection = document.querySelector('.card .card-header.bg-dark');
   if (testSection && testSection.closest('.card')) {
     testSection.closest('.card').style.display = 'none';
+  }
+
+  // Masquer le lien Administration
+  const navAdmin = document.getElementById('nav-admin');
+  if (navAdmin) {
+    navAdmin.style.display = 'none';
   }
 }
 
@@ -141,13 +144,10 @@ function showAdminContent() {
     dbManagement.style.display = 'block';
   }
 
-  // Afficher toute la card "Nouvelle session"
+  // Afficher le bouton "Nouvelle session"
   const btnNewSession = document.getElementById('btn-new-session');
   if (btnNewSession) {
-    const newSessionCard = btnNewSession.closest('.card');
-    if (newSessionCard) {
-      newSessionCard.style.display = 'block';
-    }
+    btnNewSession.style.display = 'inline-block';
   }
 
   // Afficher la section de test Firebase
@@ -155,23 +155,36 @@ function showAdminContent() {
   if (testSection && testSection.closest('.card')) {
     testSection.closest('.card').style.display = 'block';
   }
+
+  // Afficher le lien Administration
+  const navAdmin = document.getElementById('nav-admin');
+  if (navAdmin) {
+    navAdmin.style.display = 'block';
+  }
 }
 
 // Afficher le contenu utilisateur
 function showUserContent() {
   // Les sessions sont toujours visibles pour les users
-  // Mais on masque toute la card "Nouvelle session" pour les users
+  // Mais on masque le bouton "Nouvelle session" pour les users
   const authLevel = getCurrentAuthLevel();
   const btnNewSession = document.getElementById('btn-new-session');
 
   if (btnNewSession) {
-    const newSessionCard = btnNewSession.closest('.card');
-    if (newSessionCard) {
-      if (authLevel && authLevel.level === 'admin') {
-        newSessionCard.style.display = 'block';
-      } else {
-        newSessionCard.style.display = 'none';
-      }
+    if (authLevel && authLevel.level === 'admin') {
+      btnNewSession.style.display = 'inline-block';
+    } else {
+      btnNewSession.style.display = 'none';
+    }
+  }
+
+  // Masquer le lien Administration pour les users
+  const navAdmin = document.getElementById('nav-admin');
+  if (navAdmin) {
+    if (authLevel && authLevel.level === 'admin') {
+      navAdmin.style.display = 'block';
+    } else {
+      navAdmin.style.display = 'none';
     }
   }
 }
@@ -201,7 +214,11 @@ function showLoginButton() {
 function displayAuthStatus(authLevel) {
   const statusDiv = document.getElementById('auth-status');
   if (!statusDiv) return;
-  
+
+  // Ne rien afficher sur la page d'accueil (le div est caché)
+  // Afficher seulement sur la page d'administration
+  if (statusDiv.style.display === 'none') return;
+
   if (authLevel) {
     statusDiv.innerHTML = `
       <div class="alert alert-info mb-0">

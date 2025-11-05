@@ -347,6 +347,314 @@ footer i.fa-heart {
     transition: width 1s ease-in-out;
 }
 
+/* Match display styles */
+.match-card {
+    transition: all 0.2s ease;
+}
+
+.match-card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+.character-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    border-radius: 4px;
+    background: #f8f9fa;
+    padding: 2px;
+}
+
+.player-name {
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.match-score {
+    font-size: 1rem;
+    font-weight: 600;
+    min-width: 50px;
+    display: inline-block;
+}
+
+/* Add Match Modal - Step by Step */
+.match-step {
+    display: none;
+}
+
+.match-step.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.step-indicator {
+    font-size: 0.85rem;
+    color: #6c757d;
+    font-weight: 500;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.step-indicator.active {
+    color: #0d6efd;
+    background: rgba(13, 110, 253, 0.1);
+    font-weight: 600;
+}
+
+.step-indicator.completed {
+    color: #198754;
+}
+
+/* Player Selection Grid */
+.player-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.player-btn {
+    padding: 1.5rem 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    background: white;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.player-btn:hover {
+    border-color: #0d6efd;
+    background: rgba(13, 110, 253, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.player-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.player-btn.disabled:hover {
+    transform: none;
+    border-color: #dee2e6;
+    background: white;
+}
+
+/* Character Selection Grid */
+.character-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 0.5rem;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 0.5rem;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    background: #f8f9fa;
+}
+
+.character-card {
+    position: relative;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 0.5rem;
+    background: white;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.character-card:hover {
+    border-color: #0d6efd;
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+}
+
+.character-card.favorite {
+    background: #fff3cd;
+    border-color: #ffc107;
+}
+
+.character-card.favorite::before {
+    content: '⭐';
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    font-size: 0.7rem;
+}
+
+.character-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+}
+
+.character-card .character-name {
+    font-size: 0.7rem;
+    margin-top: 0.25rem;
+    color: #495057;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Match Summary */
+.match-summary {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+.summary-character-icon {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: white;
+    padding: 0.5rem;
+    border: 2px solid #dee2e6;
+}
+
+/* Winner and Score Buttons */
+.winner-btn {
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.winner-btn.selected {
+    background: #198754;
+    border-color: #198754;
+    color: white;
+}
+
+.winner-btn:not(.selected):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.score-btn {
+    min-width: 80px;
+    transition: all 0.2s ease;
+}
+
+.score-btn.selected {
+    background: #0d6efd;
+    border-color: #0d6efd;
+    color: white;
+}
+
+.score-btn:not(.selected):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive for Add Match Modal */
+@media (max-width: 768px) {
+    .step-indicator {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.3rem;
+    }
+
+    .player-selection-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .player-btn {
+        padding: 1rem 0.75rem;
+        font-size: 1rem;
+    }
+
+    .character-selection-grid {
+        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+        gap: 0.4rem;
+        max-height: 350px;
+    }
+
+    .character-card {
+        padding: 0.4rem;
+    }
+
+    .character-card .character-name {
+        font-size: 0.65rem;
+    }
+
+    .summary-character-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .match-summary {
+        padding: 1rem;
+    }
+
+    .winner-btn, .score-btn {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .step-indicator {
+        font-size: 0.6rem;
+        padding: 0.15rem 0.25rem;
+    }
+
+    .character-selection-grid {
+        grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+        gap: 0.3rem;
+        max-height: 300px;
+    }
+
+    .character-card {
+        padding: 0.3rem;
+    }
+
+    .character-card .character-name {
+        font-size: 0.6rem;
+    }
+
+    .summary-character-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .match-summary h6 {
+        font-size: 0.9rem;
+    }
+
+    .match-summary small {
+        font-size: 0.75rem;
+    }
+
+    .winner-btn, .score-btn {
+        font-size: 0.85rem;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .score-btn {
+        min-width: 70px;
+    }
+}
+
 /* Responsive adjustments for session page */
 @media (max-width: 768px) {
     /* Header de session plus compact */
@@ -449,29 +757,26 @@ footer i.fa-heart {
     }
 
     /* Matchs en mobile */
-    #matches-list .card {
-        margin-bottom: 0.6rem;
+    #matches-list .match-card {
+        margin-bottom: 0.5rem;
     }
 
     #matches-list .card-body {
-        padding: 0.6rem 0.4rem;
+        padding: 0.5rem !important;
     }
 
-    #matches-list .card-body .row {
+    .character-icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .player-name {
         font-size: 0.8rem;
     }
 
-    #matches-list h5 {
+    .match-score {
         font-size: 0.85rem;
-        margin-bottom: 0.2rem;
-    }
-
-    #matches-list small {
-        font-size: 0.7rem;
-    }
-
-    #matches-list h4 {
-        font-size: 0.95rem;
+        min-width: 45px;
     }
 
     #matches-list .badge {
@@ -538,36 +843,27 @@ footer i.fa-heart {
     }
 
     /* Matchs très compacts */
-    #matches-list .col-1 {
-        flex: 0 0 auto;
-        width: auto;
-        padding-right: 0.3rem;
+    .character-icon {
+        width: 24px;
+        height: 24px;
     }
 
-    #matches-list .col-5 {
-        flex: 0 0 auto;
-        width: 40%;
-        padding-left: 0.2rem;
-        padding-right: 0.2rem;
+    .player-name {
+        font-size: 0.75rem;
     }
 
-    #matches-list .col-2 {
-        flex: 0 0 auto;
-        width: 20%;
-        padding-left: 0.2rem;
-        padding-right: 0.2rem;
-    }
-
-    #matches-list h5 {
+    .match-score {
         font-size: 0.8rem;
+        min-width: 40px;
     }
 
-    #matches-list h4 {
-        font-size: 0.85rem;
+    #matches-list .badge {
+        font-size: 0.65rem;
+        padding: 0.15rem 0.3rem;
     }
 
     #matches-list .fa-trophy {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
     }
 
     /* Messages vides plus compacts */

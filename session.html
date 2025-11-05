@@ -102,6 +102,143 @@
         </div>
     </div>
 
+    <!-- Add Match Modal -->
+    <div class="modal fade" id="addMatchModal" tabindex="-1" aria-labelledby="addMatchModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="addMatchModalLabel">
+                        <i class="fas fa-plus-circle"></i> Ajouter un Match
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <!-- Progress indicator -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="step-indicator active" id="step-indicator-1">1. Joueur 1</span>
+                            <span class="step-indicator" id="step-indicator-2">2. Personnage J1</span>
+                            <span class="step-indicator" id="step-indicator-3">3. Joueur 2</span>
+                            <span class="step-indicator" id="step-indicator-4">4. Personnage J2</span>
+                            <span class="step-indicator" id="step-indicator-5">5. Résultat</span>
+                        </div>
+                        <div class="progress" style="height: 4px;">
+                            <div class="progress-bar bg-primary" id="match-progress" role="progressbar" style="width: 20%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Step 1: Select Player 1 -->
+                    <div class="match-step active" id="step-1">
+                        <h5 class="text-center mb-4"><i class="fas fa-user text-primary"></i> Sélectionnez le Joueur 1</h5>
+                        <div id="player1-buttons" class="player-selection-grid">
+                            <!-- Player buttons will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Select Character for Player 1 -->
+                    <div class="match-step" id="step-2">
+                        <h5 class="text-center mb-3">
+                            <i class="fas fa-gamepad text-primary"></i>
+                            Personnage de <span id="player1-name-display" class="text-primary fw-bold"></span>
+                        </h5>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="character1-search" placeholder="🔍 Rechercher un personnage...">
+                        </div>
+                        <div id="character1-grid" class="character-selection-grid">
+                            <!-- Character icons will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Select Player 2 -->
+                    <div class="match-step" id="step-3">
+                        <h5 class="text-center mb-4"><i class="fas fa-user text-danger"></i> Sélectionnez le Joueur 2</h5>
+                        <div id="player2-buttons" class="player-selection-grid">
+                            <!-- Player buttons will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Select Character for Player 2 -->
+                    <div class="match-step" id="step-4">
+                        <h5 class="text-center mb-3">
+                            <i class="fas fa-gamepad text-danger"></i>
+                            Personnage de <span id="player2-name-display" class="text-danger fw-bold"></span>
+                        </h5>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="character2-search" placeholder="🔍 Rechercher un personnage...">
+                        </div>
+                        <div id="character2-grid" class="character-selection-grid">
+                            <!-- Character icons will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Select Winner and Score -->
+                    <div class="match-step" id="step-5">
+                        <h5 class="text-center mb-4"><i class="fas fa-trophy text-warning"></i> Résultat du Match</h5>
+
+                        <!-- Match Summary -->
+                        <div class="match-summary mb-4">
+                            <div class="row align-items-center">
+                                <div class="col text-center">
+                                    <img id="summary-char1-icon" src="" alt="" class="summary-character-icon mb-2">
+                                    <h6 id="summary-player1" class="mb-0"></h6>
+                                    <small id="summary-char1" class="text-muted"></small>
+                                </div>
+                                <div class="col-auto">
+                                    <h3 class="mb-0 text-muted">VS</h3>
+                                </div>
+                                <div class="col text-center">
+                                    <img id="summary-char2-icon" src="" alt="" class="summary-character-icon mb-2">
+                                    <h6 id="summary-player2" class="mb-0"></h6>
+                                    <small id="summary-char2" class="text-muted"></small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Winner Selection -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Vainqueur :</label>
+                            <div class="d-grid gap-2">
+                                <button type="button" class="btn btn-outline-success btn-lg winner-btn" id="winner-player1-btn">
+                                    <i class="fas fa-trophy"></i> <span id="winner-player1-name"></span>
+                                </button>
+                                <button type="button" class="btn btn-outline-success btn-lg winner-btn" id="winner-player2-btn">
+                                    <i class="fas fa-trophy"></i> <span id="winner-player2-name"></span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Score Selection -->
+                        <div class="mb-4" id="score-selection" style="display: none;">
+                            <label class="form-label fw-bold">Score :</label>
+                            <div class="d-flex gap-2 justify-content-center">
+                                <button type="button" class="btn btn-outline-primary btn-lg score-btn" data-score="3-0">3-0</button>
+                                <button type="button" class="btn btn-outline-primary btn-lg score-btn" data-score="3-1">3-1</button>
+                                <button type="button" class="btn btn-outline-primary btn-lg score-btn" data-score="3-2">3-2</button>
+                            </div>
+                        </div>
+
+                        <!-- Save Button -->
+                        <div class="d-grid" id="save-match-container" style="display: none;">
+                            <button type="button" class="btn btn-success btn-lg" id="save-match-btn">
+                                <i class="fas fa-check-circle"></i> Enregistrer le match
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="d-flex justify-content-between mt-4">
+                        <button type="button" class="btn btn-outline-secondary" id="prev-step-btn" style="display: none;">
+                            <i class="fas fa-arrow-left"></i> Précédent
+                        </button>
+                        <div></div>
+                    </div>
+
+                    <div id="add-match-error" class="alert alert-danger mt-3" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Edit Session Modal -->
     <div class="modal fade" id="editSessionModal" tabindex="-1" aria-labelledby="editSessionModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">

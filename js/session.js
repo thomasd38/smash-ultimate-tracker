@@ -12,6 +12,11 @@ let players = [];
 // ===================================
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialiser l'authentification et la navbar
+    if (typeof initAuth === 'function') {
+        initAuth();
+    }
+
     // Récupérer l'ID de la session depuis l'URL
     const urlParams = new URLSearchParams(window.location.search);
     currentSessionId = urlParams.get('id');

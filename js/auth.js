@@ -342,25 +342,40 @@ async function handleLogin(event) {
 
 // Initialiser l'authentification au chargement de la page
 function initAuth() {
+  // Déterminer la page active pour la navbar
+  const currentPage = window.location.pathname;
+  let activePage = 'accueil';
+
+  if (currentPage.includes('backup.html')) {
+    activePage = 'admin';
+  } else if (currentPage.includes('session.html')) {
+    activePage = 'accueil'; // Pas de page spécifique pour session
+  }
+
+  // Initialiser la navbar d'abord
+  if (typeof initNavbar === 'function') {
+    initNavbar(activePage);
+  }
+
   // Vérifier l'authentification existante
   const authLevel = getCurrentAuthLevel();
-  
+
   // Mettre à jour l'interface
   updateUIForAuthLevel();
-  
+
   // Si non connecté, afficher la modal de connexion
   if (!authLevel) {
     setTimeout(() => {
       showLoginModal();
     }, 500);
   }
-  
+
   // Ajouter les event listeners
   const loginForm = document.getElementById('login-form');
   if (loginForm) {
     loginForm.addEventListener('submit', handleLogin);
   }
-  
+
   const btnLogin = document.getElementById('btn-login');
   if (btnLogin) {
     btnLogin.addEventListener('click', showLoginModal);

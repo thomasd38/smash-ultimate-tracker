@@ -22,49 +22,55 @@
 
     <!-- Main Content -->
     <div class="container mt-4">
-        <!-- Session Header -->
-        <div class="row mb-4">
+        <!-- Bouton retour -->
+        <div class="row mb-2">
             <div class="col-12">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <a href="index.html" class="btn btn-outline-secondary mb-2">
-                            <i class="fas fa-arrow-left"></i> Retour
-                        </a>
-                        <h1 id="session-name">
+                <a href="index.html" class="btn btn-outline-secondary btn-sm">
+                    <i class="fas fa-arrow-left"></i> Retour
+                </a>
+            </div>
+        </div>
+
+        <!-- Session Header -->
+        <div class="row mb-3">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 id="session-name" class="mb-2">
                             <i class="fas fa-gamepad text-warning"></i>
                             <span>Chargement...</span>
                         </h1>
-                        <p class="text-muted" id="session-date">
+                        <p class="text-muted mb-3" id="session-date">
                             <i class="fas fa-calendar"></i> <span>-</span>
                         </p>
-                    </div>
-                    <div class="d-flex gap-2 flex-wrap">
-                        <button class="btn btn-outline-secondary" id="btn-edit-session">
-                            <i class="fas fa-edit"></i> Modifier
-                        </button>
-                        <button class="btn btn-primary btn-lg" id="btn-add-match">
-                            <i class="fas fa-plus"></i> Ajouter un match
-                        </button>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <button class="btn btn-outline-secondary btn-sm" id="btn-edit-session">
+                                <i class="fas fa-edit"></i> Modifier
+                            </button>
+                            <button class="btn btn-primary" id="btn-add-match">
+                                <i class="fas fa-plus"></i> Ajouter un match
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Podium Section -->
-        <div class="row mb-4">
+        <div class="row mb-3">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header bg-warning text-dark">
                         <h5 class="mb-0">
-                            <i class="fas fa-trophy"></i> Classement de la session
+                            <i class="fas fa-trophy"></i> Classement
                         </h5>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body p-2">
                         <div id="podium-container" class="row text-center">
                             <!-- Podium will be generated here -->
-                            <div class="col-12 text-muted py-4">
+                            <div class="col-12 text-muted py-3">
                                 <i class="fas fa-spinner fa-spin fa-2x"></i>
-                                <p class="mt-2">Chargement du classement...</p>
+                                <p class="mt-2 mb-0">Chargement...</p>
                             </div>
                         </div>
                     </div>
@@ -73,21 +79,21 @@
         </div>
 
         <!-- Matches List -->
-        <div class="row">
+        <div class="row mb-3">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header bg-primary text-white">
                         <h5 class="mb-0">
-                            <i class="fas fa-list"></i> Matchs de la session
+                            <i class="fas fa-list"></i> Matchs
                             <span class="badge bg-light text-dark ms-2" id="match-count">0</span>
                         </h5>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body p-2">
                         <div id="matches-list">
                             <!-- Matches will be loaded here -->
-                            <div class="text-center text-muted py-4">
+                            <div class="text-center text-muted py-3">
                                 <i class="fas fa-spinner fa-spin fa-2x"></i>
-                                <p class="mt-2">Chargement des matchs...</p>
+                                <p class="mt-2 mb-0">Chargement...</p>
                             </div>
                         </div>
                     </div>

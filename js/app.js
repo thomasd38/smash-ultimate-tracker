@@ -23,19 +23,30 @@ function initEventListeners() {
     if (btnNewSession) {
         btnNewSession.addEventListener('click', createNewSession);
     }
-    
+
     // Bouton voir les sessions
     const btnViewSessions = document.getElementById('btn-view-sessions');
     if (btnViewSessions) {
         btnViewSessions.addEventListener('click', loadSessions);
     }
-    
+
+    // Boutons de gestion de la base de données
+    const btnInitDb = document.getElementById('btn-init-db');
+    if (btnInitDb) {
+        btnInitDb.addEventListener('click', handleInitDatabase);
+    }
+
+    const btnClearDb = document.getElementById('btn-clear-db');
+    if (btnClearDb) {
+        btnClearDb.addEventListener('click', handleClearDatabase);
+    }
+
     // Boutons de test Firebase
     const btnTestWrite = document.getElementById('btn-test-write');
     if (btnTestWrite) {
         btnTestWrite.addEventListener('click', testFirebaseWrite);
     }
-    
+
     const btnTestRead = document.getElementById('btn-test-read');
     if (btnTestRead) {
         btnTestRead.addEventListener('click', testFirebaseRead);
@@ -173,6 +184,84 @@ function viewSession(sessionId) {
     console.log('📋 Affichage de la session:', sessionId);
     alert(`Session ID: ${sessionId}\n\nCette fonctionnalité sera implémentée prochainement !`);
     // TODO: Implémenter la page de détails de session
+}
+
+// ===================================
+// Fonctions de gestion de la base de données
+// ===================================
+
+// Handler pour initialiser la base de données
+async function handleInitDatabase() {
+    const dbStatus = document.getElementById('db-status');
+
+    dbStatus.innerHTML = `
+        <div class="alert alert-info">
+            <i class="fas fa-spinner fa-spin"></i> Initialisation en cours...
+        </div>
+    `;
+
+    try {
+        await initializeDatabase();
+
+        dbStatus.innerHTML = `
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>
+                <strong>✅ Base de données initialisée avec succès !</strong>
+                <br>Rechargez la page pour voir les données.
+            </div>
+        `;
+
+        // Recharger les sessions après 2 secondes
+        setTimeout(() => {
+            loadSessions();
+        }, 2000);
+    } catch (error) {
+        dbStatus.innerHTML = `
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-triangle"></i>
+                <strong>❌ Erreur lors de l'initialisation</strong>
+                <br><code>${error.message}</code>
+            </div>
+        `;
+    }
+}
+
+// Handler pour vider la base de données
+async function handleClearDatabase() {
+    const dbStatus = document.getElementById('db-status');
+
+    dbStatus.innerHTML = `
+        <div class="alert alert-warning">
+            <i class="fas fa-spinner fa-spin"></i> Suppression en cours...
+        </div>
+    `;
+
+    try {
+        const success = await clearDatabase();
+
+        if (success) {
+            dbStatus.innerHTML = `
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle"></i>
+                    <strong>✅ Base de données vidée !</strong>
+                    <br>Toutes les données ont été supprimées.
+                </div>
+            `;
+
+            // Recharger les sessions
+            setTimeout(() => {
+                loadSessions();
+            }, 1000);
+        }
+    } catch (error) {
+        dbStatus.innerHTML = `
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-triangle"></i>
+                <strong>❌ Erreur lors de la suppression</strong>
+                <br><code>${error.message}</code>
+            </div>
+        `;
+    }
 }
 
 // ===================================

@@ -27,28 +27,28 @@ const initialUsers = [
     id: 'shiro',
     name: 'Shiro',
     nickname: 'Shiro',
-    favoriteCharacters: ['pikachu', 'kirby', 'meta-knight'],
+    favoriteCharacters: ['zero-suit-samus'],
     createdAt: firebase.firestore.FieldValue.serverTimestamp()
   },
   {
     id: 'akro',
     name: 'Akro',
     nickname: 'Akro',
-    favoriteCharacters: ['samus', 'ridley', 'dark-samus'],
+    favoriteCharacters: ['palutena', 'ganondorf'],
     createdAt: firebase.firestore.FieldValue.serverTimestamp()
   },
   {
     id: 'celda',
     name: 'Celda',
     nickname: 'Celda',
-    favoriteCharacters: ['peach', 'daisy', 'rosalina'],
+    favoriteCharacters: ['bowser', 'ganondorf'],
     createdAt: firebase.firestore.FieldValue.serverTimestamp()
   },
   {
     id: 'blaisave',
     name: 'Blaisave',
     nickname: 'Blaisave',
-    favoriteCharacters: ['bowser', 'ganondorf', 'king-k-rool'],
+    favoriteCharacters: ['piranha-plant', 'ness'],
     createdAt: firebase.firestore.FieldValue.serverTimestamp()
   }
 ];
@@ -63,42 +63,30 @@ const initialCharacters = window.ALL_CHARACTERS || [];
 
 // Initialiser les utilisateurs
 async function initUsers() {
-  console.log('📝 Initialisation des utilisateurs...');
-  
   try {
     for (const user of initialUsers) {
       await db.collection('users').doc(user.id).set(user);
-      console.log(`✅ Utilisateur créé: ${user.name}`);
     }
-    console.log(`✅ ${initialUsers.length} utilisateurs créés avec succès !`);
     return true;
   } catch (error) {
-    console.error('❌ Erreur lors de la création des utilisateurs:', error);
     return false;
   }
 }
 
 // Initialiser les personnages
 async function initCharacters() {
-  console.log('🎮 Initialisation des personnages...');
-  
   try {
     for (const character of initialCharacters) {
       await db.collection('characters').doc(character.id).set(character);
-      console.log(`✅ Personnage créé: ${character.name}`);
     }
-    console.log(`✅ ${initialCharacters.length} personnages créés avec succès !`);
     return true;
   } catch (error) {
-    console.error('❌ Erreur lors de la création des personnages:', error);
     return false;
   }
 }
 
 // Créer une session exemple avec des matchs
 async function createExampleSession() {
-  console.log('🎯 Création d\'une session exemple...');
-  
   try {
     // Créer la session
     const sessionRef = await db.collection('sessions').add({
@@ -107,8 +95,6 @@ async function createExampleSession() {
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       players: ['raz3ll', 'lsa', 'shiro', 'akro']
     });
-
-    console.log(`✅ Session créée avec ID: ${sessionRef.id}`);
 
     // Créer quelques matchs dans cette session
     const matches = [
@@ -160,84 +146,79 @@ async function createExampleSession() {
     
     for (const match of matches) {
       await sessionRef.collection('matches').add(match);
-      console.log(`✅ Match créé: ${match.player1Name} vs ${match.player2Name}`);
     }
-    
-    console.log(`✅ ${matches.length} matchs créés dans la session !`);
+
     return true;
   } catch (error) {
-    console.error('❌ Erreur lors de la création de la session exemple:', error);
     return false;
   }
 }
 
 // Initialiser toute la base de données
 async function initializeDatabase() {
-  console.log('🚀 Démarrage de l\'initialisation de la base de données...');
-  console.log('⚠️ Cette opération va créer toutes les données initiales.');
-  
   const confirm = window.confirm(
     'Voulez-vous initialiser la base de données ?\n\n' +
     `Cela va créer :\n` +
     `- ${initialUsers.length} utilisateurs\n` +
     `- ${initialCharacters.length} personnages\n` +
-    `- 1 session exemple avec 3 matchs\n\n` +
+    `- 1 session exemple avec 4 matchs\n\n` +
     'Continuer ?'
   );
-  
+
   if (!confirm) {
-    console.log('❌ Initialisation annulée par l\'utilisateur');
     return;
   }
-  
+
   const startTime = Date.now();
-  
+
   // Initialiser les utilisateurs
   const usersSuccess = await initUsers();
-  
+
   // Initialiser les personnages
   const charactersSuccess = await initCharacters();
-  
+
   // Créer une session exemple
   const sessionSuccess = await createExampleSession();
-  
+
   const endTime = Date.now();
   const duration = ((endTime - startTime) / 1000).toFixed(2);
-  
+
   if (usersSuccess && charactersSuccess && sessionSuccess) {
-    console.log(`\n🎉 Base de données initialisée avec succès en ${duration}s !`);
     alert(`✅ Base de données initialisée avec succès !\n\nTemps: ${duration}s\n\nRechargez la page pour voir les données.`);
   } else {
-    console.log(`\n⚠️ Initialisation terminée avec des erreurs (${duration}s)`);
-    alert('⚠️ Certaines données n\'ont pas pu être créées. Vérifiez la console.');
+    alert('⚠️ Certaines données n\'ont pas pu être créées.');
   }
 }
 
-// Fonction pour nettoyer la base de données (DANGER!)
+// Fonction pour vider la base de données
 async function clearDatabase() {
   const confirm = window.confirm(
-    '⚠️ ATTENTION ⚠️\n\n' +
+    '⚠️ VIDER LA BASE DE DONNÉES ⚠️\n\n' +
     'Voulez-vous vraiment SUPPRIMER toutes les données ?\n\n' +
     'Cette action est IRRÉVERSIBLE !'
   );
-  
-  if (!confirm) return;
-  
-  console.log('🗑️ Suppression de toutes les données...');
-  
+
+  if (!confirm) {
+    return false;
+  }
+
   try {
+    let deletedCount = 0;
+
     // Supprimer les utilisateurs
     const usersSnapshot = await db.collection('users').get();
     for (const doc of usersSnapshot.docs) {
       await doc.ref.delete();
+      deletedCount++;
     }
-    
+
     // Supprimer les personnages
     const charactersSnapshot = await db.collection('characters').get();
     for (const doc of charactersSnapshot.docs) {
       await doc.ref.delete();
+      deletedCount++;
     }
-    
+
     // Supprimer les sessions et leurs matchs
     const sessionsSnapshot = await db.collection('sessions').get();
     for (const sessionDoc of sessionsSnapshot.docs) {
@@ -245,16 +226,19 @@ async function clearDatabase() {
       const matchesSnapshot = await sessionDoc.ref.collection('matches').get();
       for (const matchDoc of matchesSnapshot.docs) {
         await matchDoc.ref.delete();
+        deletedCount++;
       }
+
       // Supprimer la session
       await sessionDoc.ref.delete();
+      deletedCount++;
     }
-    
-    console.log('✅ Base de données nettoyée !');
-    alert('✅ Toutes les données ont été supprimées.');
+
+    alert(`✅ Base de données vidée !\n\n${deletedCount} documents supprimés.`);
+    return true;
   } catch (error) {
-    console.error('❌ Erreur lors du nettoyage:', error);
-    alert('❌ Erreur lors du nettoyage de la base de données.');
+    alert('❌ Erreur lors de la suppression de la base de données.');
+    return false;
   }
 }
 
@@ -264,8 +248,4 @@ window.clearDatabase = clearDatabase;
 window.initUsers = initUsers;
 window.initCharacters = initCharacters;
 window.createExampleSession = createExampleSession;
-
-console.log('📚 Script d\'initialisation chargé !');
-console.log('💡 Utilisez initializeDatabase() pour initialiser la base de données');
-console.log('⚠️ Utilisez clearDatabase() pour supprimer toutes les données');
 

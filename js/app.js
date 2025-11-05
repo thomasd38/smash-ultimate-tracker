@@ -5,10 +5,13 @@
 // Attendre que le DOM soit chargé
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🎮 Application Smash Ultimate Tracker démarrée');
-    
+
+    // Initialiser le système d'authentification
+    initAuth();
+
     // Initialiser les event listeners
     initEventListeners();
-    
+
     // Charger les sessions existantes
     loadSessions();
 });

@@ -35,6 +35,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#"><i class="fas fa-chart-bar"></i> Statistiques</a>
                     </li>
+                    <li class="nav-item">
+                        <button class="btn btn-outline-light btn-sm ms-2" id="btn-login">
+                            <i class="fas fa-sign-in-alt"></i> Connexion
+                        </button>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -50,6 +55,13 @@
                     Bienvenue sur Smash Ultimate Tracker
                 </h1>
                 <p class="text-center text-muted">Trackez vos sessions de jeu et consultez vos statistiques</p>
+            </div>
+        </div>
+
+        <!-- Auth Status -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div id="auth-status"></div>
             </div>
         </div>
 
@@ -180,10 +192,49 @@
         </div>
     </div>
 
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="loginModalLabel">
+                        <i class="fas fa-lock"></i> Connexion
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <form id="login-form">
+                        <div class="mb-3">
+                            <label for="password-input" class="form-label">Mot de passe</label>
+                            <input
+                                type="password"
+                                class="form-control"
+                                id="password-input"
+                                placeholder="Entrez votre mot de passe"
+                                required
+                                autocomplete="current-password"
+                            >
+                        </div>
+                        <div id="login-error" class="alert alert-danger" style="display: none;"></div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-sign-in-alt"></i> Se connecter
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <small class="text-muted">
+                        <i class="fas fa-info-circle"></i> Entrez votre mot de passe pour accéder à l'application
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-dark text-white text-center py-3 mt-5">
         <p class="mb-0">
-            <i class="fas fa-gamepad"></i> Smash Ultimate Tracker - 
+            <i class="fas fa-gamepad"></i> Smash Ultimate Tracker -
             Fait avec <i class="fas fa-heart text-danger"></i> pour les fans de Smash Bros
         </p>
     </footer>
@@ -203,6 +254,9 @@
 
     <!-- Database Initialization Script -->
     <script src="js/init-database.js"></script>
+
+    <!-- Authentication Script -->
+    <script src="js/auth.js"></script>
 
     <!-- Custom JS -->
     <script src="js/app.js"></script>

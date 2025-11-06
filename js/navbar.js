@@ -21,7 +21,7 @@ function createNavbar(activePage = 'accueil') {
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link ${activePage === 'statistiques' ? 'active' : ''}" href="#">
+                        <a class="nav-link ${activePage === 'statistiques' ? 'active' : ''}" href="stats.html">
                             <i class="fas fa-chart-bar"></i> Statistiques
                         </a>
                     </li>

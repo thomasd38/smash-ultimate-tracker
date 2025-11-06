@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistiques - Smash Ultimate Tracker</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="icon" type="image/png" href="icon.png" />
+</head>
+<body>
+    <!-- Navigation -->
+    <div id="navbar-container"></div>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h1>
+                    <i class="fas fa-chart-bar text-primary"></i>
+                    Statistiques Globales
+                </h1>
+                <p class="text-muted">Analyse complète de toutes vos sessions de jeu</p>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="stats-loader" class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Chargement...</span>
+            </div>
+            <p class="mt-3 text-muted">Calcul des statistiques en cours...</p>
+        </div>
+
+        <!-- Stats Content (hidden initially) -->
+        <div id="stats-content" style="display: none;">
+            
+            <!-- Vue d'ensemble -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="mb-3">
+                        <i class="fas fa-eye text-info"></i>
+                        Vue d'ensemble
+                    </h2>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="card stat-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-gamepad fa-2x text-primary mb-2"></i>
+                            <h3 id="total-sessions" class="mb-0">0</h3>
+                            <p class="text-muted mb-0">Sessions</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="card stat-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-trophy fa-2x text-warning mb-2"></i>
+                            <h3 id="total-matches" class="mb-0">0</h3>
+                            <p class="text-muted mb-0">Matchs</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="card stat-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-users fa-2x text-success mb-2"></i>
+                            <h3 id="total-players" class="mb-0">0</h3>
+                            <p class="text-muted mb-0">Joueurs</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="card stat-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-user-ninja fa-2x text-danger mb-2"></i>
+                            <h3 id="total-characters" class="mb-0">0</h3>
+                            <p class="text-muted mb-0">Personnages joués</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Classement général des joueurs -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="mb-3">
+                        <i class="fas fa-crown text-warning"></i>
+                        Classement Général
+                    </h2>
+                </div>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="global-ranking" class="table-responsive">
+                                <!-- Tableau de classement -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistiques par joueur -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="mb-3">
+                        <i class="fas fa-user-chart text-success"></i>
+                        Statistiques par Joueur
+                    </h2>
+                </div>
+                <div class="col-12">
+                    <div id="player-stats-container">
+                        <!-- Cartes de stats par joueur -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistiques par personnage -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="mb-3">
+                        <i class="fas fa-user-ninja text-danger"></i>
+                        Personnages les plus joués
+                    </h2>
+                </div>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="character-stats" class="table-responsive">
+                                <!-- Tableau des personnages -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Matchups (Face-à-face) -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="mb-3">
+                        <i class="fas fa-handshake text-info"></i>
+                        Face-à-face entre joueurs
+                    </h2>
+                </div>
+                <div class="col-12">
+                    <div id="matchups-container">
+                        <!-- Grille de matchups -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistiques LAN vs Online -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="mb-3">
+                        <i class="fas fa-wifi text-primary"></i>
+                        LAN vs Online
+                    </h2>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <i class="fas fa-network-wired"></i> Sessions LAN
+                        </div>
+                        <div class="card-body">
+                            <div id="lan-stats">
+                                <!-- Stats LAN -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-header bg-success text-white">
+                            <i class="fas fa-globe"></i> Sessions Online
+                        </div>
+                        <div class="card-body">
+                            <div id="online-stats">
+                                <!-- Stats Online -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Records et achievements -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="mb-3">
+                        <i class="fas fa-medal text-warning"></i>
+                        Records & Achievements
+                    </h2>
+                </div>
+                <div class="col-12">
+                    <div id="records-container">
+                        <!-- Records -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistiques par personnage (matchups de personnages) -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="mb-3">
+                        <i class="fas fa-chess text-secondary"></i>
+                        Matchups de Personnages
+                    </h2>
+                </div>
+                <div class="col-12">
+                    <div id="character-matchups-container">
+                        <!-- Matchups de personnages -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Snackbar Container -->
+    <div id="snackbar-container"></div>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="loginModalLabel">
+                        <i class="fas fa-lock"></i> Connexion
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <form id="login-form">
+                        <div class="mb-3">
+                            <label for="password-input" class="form-label">Mot de passe</label>
+                            <input
+                                type="password"
+                                class="form-control"
+                                id="password-input"
+                                placeholder="Entrez votre mot de passe"
+                                required
+                                autocomplete="current-password"
+                            >
+                        </div>
+                        <div id="login-error" class="alert alert-danger" style="display: none;"></div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-sign-in-alt"></i> Se connecter
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <small class="text-muted">
+                        <i class="fas fa-info-circle"></i> Entrez votre mot de passe pour accéder à l'application
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <!-- Firebase Configuration -->
+    <script src="js/firebase-config.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="js/auth.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/snackbar.js"></script>
+    <script src="js/stats.js"></script>
+</body>
+</html>
+

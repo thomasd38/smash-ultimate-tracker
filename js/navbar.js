@@ -26,6 +26,11 @@ function createNavbar(activePage = 'accueil') {
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link ${activePage === 'joueurs' ? 'active' : ''}" href="players.html" id="nav-players">
+                            <i class="fas fa-users"></i> Joueurs
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link ${activePage === 'admin' ? 'active' : ''}" href="backup.html" id="nav-admin">
                             <i class="fas fa-cog"></i> Administration
                         </a>

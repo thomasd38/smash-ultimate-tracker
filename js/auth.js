@@ -146,6 +146,12 @@ function hideAllContent() {
   if (navAdmin) {
     navAdmin.style.display = 'none';
   }
+
+  // Masquer le lien Joueurs
+  const navPlayers = document.getElementById('nav-players');
+  if (navPlayers) {
+    navPlayers.style.display = 'none';
+  }
 }
 
 // Afficher le contenu admin
@@ -184,6 +190,12 @@ function showAdminContent() {
   const navAdmin = document.getElementById('nav-admin');
   if (navAdmin) {
     navAdmin.style.display = 'block';
+  }
+
+  // Afficher le lien Joueurs
+  const navPlayers = document.getElementById('nav-players');
+  if (navPlayers) {
+    navPlayers.style.display = 'block';
   }
 }
 
@@ -228,6 +240,16 @@ function showUserContent() {
       navAdmin.style.display = 'block';
     } else {
       navAdmin.style.display = 'none';
+    }
+  }
+
+  // Masquer le lien Joueurs pour les users
+  const navPlayers = document.getElementById('nav-players');
+  if (navPlayers) {
+    if (authLevel && authLevel.level === 'admin') {
+      navPlayers.style.display = 'block';
+    } else {
+      navPlayers.style.display = 'none';
     }
   }
 }
@@ -352,6 +374,8 @@ function initAuth() {
     activePage = 'accueil'; // Pas de page spécifique pour session
   } else if (currentPage.includes('stats.html')) {
     activePage = 'statistiques';
+  } else if (currentPage.includes('players.html')) {
+    activePage = 'joueurs';
   }
 
   // Initialiser la navbar d'abord

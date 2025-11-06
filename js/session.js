@@ -683,7 +683,11 @@ function renderCharacterGrid(gridId, searchId, favoriteIds, onSelectCallback) {
         const favorites = filteredChars.filter(char => favoriteIds.includes(char.id));
         const others = filteredChars.filter(char => !favoriteIds.includes(char.id));
 
-        // Afficher favoris en premier, puis les autres
+        // Trier les favoris ET les "autres" par ordre alphabétique
+        favorites.sort((a, b) => a.name.localeCompare(b.name));
+        others.sort((a, b) => a.name.localeCompare(b.name));
+
+        // Afficher favoris en premier, puis les autres (tous par ordre alphabétique)
         const sortedChars = [...favorites, ...others];
 
         grid.innerHTML = sortedChars.map(char => `

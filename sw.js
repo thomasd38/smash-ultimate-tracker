@@ -2,7 +2,7 @@
 // Service Worker pour Smash Ultimate Tracker
 // ===================================
 
-const CACHE_NAME = 'smash-tracker-v2';
+const CACHE_NAME = 'smash-tracker-v4';
 const urlsToCache = [
   './',
   './index.html',

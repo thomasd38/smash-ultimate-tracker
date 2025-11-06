@@ -203,10 +203,16 @@ function openPlayerModal(playerId = null) {
         playerNicknameInput.value = player.nickname || '';
         selectedCharacters = [...(player.favoriteCharacters || [])];
 
+        // Désactiver le champ pseudo (non modifiable pour préserver l'historique)
+        playerNicknameInput.disabled = true;
+        playerNicknameInput.classList.add('bg-light');
+
         // Afficher l'ID actuel (non modifiable)
         if (preview) {
             preview.textContent = player.id;
             preview.style.color = '#6c757d';
+            preview.parentElement.innerHTML = `Le pseudo ne peut pas être modifié (ID: <strong>${player.id}</strong>)`;
+            preview.parentElement.classList.add('text-muted');
         }
     } else {
         // Mode ajout
@@ -214,10 +220,16 @@ function openPlayerModal(playerId = null) {
         playerNicknameInput.value = '';
         selectedCharacters = [];
 
+        // Réactiver le champ pseudo
+        playerNicknameInput.disabled = false;
+        playerNicknameInput.classList.remove('bg-light');
+
         // Réinitialiser l'aperçu
         if (preview) {
             preview.textContent = '-';
             preview.style.color = '#6c757d';
+            preview.parentElement.innerHTML = `L'ID sera généré automatiquement : <strong id="generated-id-preview">-</strong>`;
+            preview.parentElement.classList.remove('text-muted');
         }
     }
 
@@ -235,6 +247,9 @@ function renderCharactersGrid(filter = '') {
     const filteredChars = allCharacters.filter(char =>
         char.name.toLowerCase().includes(filter.toLowerCase())
     );
+
+    // Trier par ordre alphabétique
+    filteredChars.sort((a, b) => a.name.localeCompare(b.name));
 
     grid.innerHTML = filteredChars.map(char => {
         const isSelected = selectedCharacters.includes(char.id);
@@ -320,8 +335,8 @@ async function savePlayer() {
     const playerNicknameInput = document.getElementById('player-nickname');
     const playerNickname = playerNicknameInput.value.trim();
 
-    // Validation
-    if (!playerNickname) {
+    // Validation (seulement pour les nouveaux joueurs)
+    if (!editingPlayerId && !playerNickname) {
         showSnackbar('Veuillez remplir le pseudo du joueur', 'error');
         return;
     }
@@ -329,8 +344,8 @@ async function savePlayer() {
     // Générer l'ID à partir du nickname (seulement pour les nouveaux joueurs)
     const playerId = editingPlayerId || generateIdFromNickname(playerNickname);
 
-    // Vérifier que l'ID n'est pas vide
-    if (!playerId) {
+    // Vérifier que l'ID n'est pas vide (seulement pour les nouveaux joueurs)
+    if (!editingPlayerId && !playerId) {
         showSnackbar('Le pseudo doit contenir au moins un caractère alphanumérique', 'error');
         return;
     }
@@ -342,21 +357,24 @@ async function savePlayer() {
     }
 
     try {
-        const playerData = {
-            name: playerNickname,
-            nickname: playerNickname,
-            favoriteCharacters: selectedCharacters
-        };
-
         if (!editingPlayerId) {
-            // Nouveau joueur
-            playerData.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+            // Nouveau joueur - créer avec name, nickname et favoriteCharacters
+            const playerData = {
+                name: playerNickname,
+                nickname: playerNickname,
+                favoriteCharacters: selectedCharacters,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
             await db.collection('users').doc(playerId).set(playerData);
             showSnackbar('Joueur ajouté avec succès', 'success');
         } else {
-            // Modification
+            // Modification - mettre à jour UNIQUEMENT les personnages favoris
+            // Le pseudo (name/nickname) ne peut pas être modifié pour préserver l'historique
+            const playerData = {
+                favoriteCharacters: selectedCharacters
+            };
             await db.collection('users').doc(playerId).update(playerData);
-            showSnackbar('Joueur modifié avec succès', 'success');
+            showSnackbar('Personnages favoris mis à jour avec succès', 'success');
         }
 
         // Recharger les données et fermer la modal

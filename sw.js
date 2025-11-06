@@ -4,23 +4,23 @@
 
 const CACHE_NAME = 'smash-tracker-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/session.html',
-  '/stats.html',
-  '/backup.html',
-  '/css/style.css',
-  '/js/app.js',
-  '/js/auth.js',
-  '/js/characters-data.js',
-  '/js/firebase-config.js',
-  '/js/init-database.js',
-  '/js/navbar.js',
-  '/js/session.js',
-  '/js/snackbar.js',
-  '/js/stats.js',
-  '/icon.png',
-  '/manifest.json'
+  './',
+  './index.html',
+  './session.html',
+  './stats.html',
+  './backup.html',
+  './css/style.css',
+  './js/app.js',
+  './js/auth.js',
+  './js/characters-data.js',
+  './js/firebase-config.js',
+  './js/init-database.js',
+  './js/navbar.js',
+  './js/session.js',
+  './js/snackbar.js',
+  './js/stats.js',
+  './icon.png',
+  './manifest.json'
 ];
 
 // Installation du Service Worker

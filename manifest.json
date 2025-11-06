@@ -2,15 +2,15 @@
   "name": "Smash Ultimate Tracker",
   "short_name": "SmashTracker",
   "description": "Suivez vos sessions et statistiques de Super Smash Bros Ultimate",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#d72727",
   "theme_color": "#d72727",
   "icons": [
     {
-      "src": "icon.png",
+      "src": "./icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"

@@ -61,37 +61,20 @@
                 </div>
                 <div class="modal-body">
                     <form id="player-form">
-                        <!-- ID (caché pour modification, visible pour ajout) -->
-                        <div class="mb-3" id="player-id-group">
-                            <label for="player-id" class="form-label">
-                                ID du joueur <span class="text-danger">*</span>
-                                <small class="text-muted">(minuscules, tirets, pas d'espaces)</small>
-                            </label>
-                            <input type="text" class="form-control" id="player-id" required
-                                   pattern="[a-z0-9-]+" 
-                                   placeholder="ex: raz3ll, lsa, shiro">
-                            <div class="form-text">
-                                L'ID est permanent et ne peut pas être modifié après création.
-                            </div>
-                        </div>
-
-                        <!-- Nom -->
-                        <div class="mb-3">
-                            <label for="player-name" class="form-label">
-                                Nom du joueur <span class="text-danger">*</span>
-                            </label>
-                            <input type="text" class="form-control" id="player-name" required
-                                   placeholder="ex: Thomas, Alex, Marie">
-                        </div>
-
-                        <!-- Nickname -->
+                        <!-- Pseudo/Nickname -->
                         <div class="mb-3">
                             <label for="player-nickname" class="form-label">
-                                Pseudo/Surnom <span class="text-danger">*</span>
+                                Pseudo du joueur <span class="text-danger">*</span>
                             </label>
                             <input type="text" class="form-control" id="player-nickname" required
                                    placeholder="ex: Raz3LL, Lsa, Shiro">
+                            <div class="form-text">
+                                L'ID sera généré automatiquement : <strong id="generated-id-preview">-</strong>
+                            </div>
                         </div>
+
+                        <!-- ID généré (caché, utilisé en interne) -->
+                        <input type="hidden" id="player-id">
 
                         <!-- Personnages favoris -->
                         <div class="mb-3">

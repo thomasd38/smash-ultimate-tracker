@@ -175,6 +175,11 @@ function initEventListeners() {
     document.getElementById('character-search')?.addEventListener('input', (e) => {
         renderCharactersGrid(e.target.value);
     });
+
+    // Mise à jour de l'aperçu de l'ID en temps réel
+    document.getElementById('player-nickname')?.addEventListener('input', () => {
+        updateIdPreview();
+    });
 }
 
 // ===================================
@@ -186,10 +191,8 @@ function openPlayerModal(playerId = null) {
     selectedCharacters = [];
 
     const modalTitle = document.getElementById('playerModalTitle');
-    const playerIdGroup = document.getElementById('player-id-group');
-    const playerIdInput = document.getElementById('player-id');
-    const playerNameInput = document.getElementById('player-name');
     const playerNicknameInput = document.getElementById('player-nickname');
+    const preview = document.getElementById('generated-id-preview');
 
     if (playerId) {
         // Mode édition
@@ -197,19 +200,25 @@ function openPlayerModal(playerId = null) {
         if (!player) return;
 
         modalTitle.innerHTML = '<i class="fas fa-edit"></i> Modifier un joueur';
-        playerIdGroup.style.display = 'none';
-        playerIdInput.value = player.id;
-        playerNameInput.value = player.name || '';
         playerNicknameInput.value = player.nickname || '';
         selectedCharacters = [...(player.favoriteCharacters || [])];
+
+        // Afficher l'ID actuel (non modifiable)
+        if (preview) {
+            preview.textContent = player.id;
+            preview.style.color = '#6c757d';
+        }
     } else {
         // Mode ajout
         modalTitle.innerHTML = '<i class="fas fa-user-plus"></i> Ajouter un joueur';
-        playerIdGroup.style.display = 'block';
-        playerIdInput.value = '';
-        playerNameInput.value = '';
         playerNicknameInput.value = '';
         selectedCharacters = [];
+
+        // Réinitialiser l'aperçu
+        if (preview) {
+            preview.textContent = '-';
+            preview.style.color = '#6c757d';
+        }
     }
 
     // Afficher la grille de personnages
@@ -274,39 +283,67 @@ function updateSelectedCharactersDisplay() {
 }
 
 // ===================================
+// UTILITAIRE: GÉNÉRER L'ID À PARTIR DU NICKNAME
+// ===================================
+
+function generateIdFromNickname(nickname) {
+    return nickname
+        .toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // Enlever les accents
+        .replace(/[^a-z0-9]/g, '') // Enlever tous les caractères spéciaux (espaces, tirets, etc.)
+        .trim();
+}
+
+// Mettre à jour l'aperçu de l'ID en temps réel
+function updateIdPreview() {
+    const nicknameInput = document.getElementById('player-nickname');
+    const preview = document.getElementById('generated-id-preview');
+
+    if (nicknameInput && preview) {
+        const nickname = nicknameInput.value.trim();
+        if (nickname) {
+            const generatedId = generateIdFromNickname(nickname);
+            preview.textContent = generatedId || '-';
+            preview.style.color = generatedId ? '#198754' : '#6c757d';
+        } else {
+            preview.textContent = '-';
+            preview.style.color = '#6c757d';
+        }
+    }
+}
+
+// ===================================
 // SAUVEGARDER UN JOUEUR
 // ===================================
 
 async function savePlayer() {
-    const playerIdInput = document.getElementById('player-id');
-    const playerNameInput = document.getElementById('player-name');
     const playerNicknameInput = document.getElementById('player-nickname');
-
-    const playerId = editingPlayerId || playerIdInput.value.trim().toLowerCase();
-    const playerName = playerNameInput.value.trim();
     const playerNickname = playerNicknameInput.value.trim();
 
     // Validation
-    if (!playerId || !playerName || !playerNickname) {
-        showSnackbar('Veuillez remplir tous les champs obligatoires', 'error');
+    if (!playerNickname) {
+        showSnackbar('Veuillez remplir le pseudo du joueur', 'error');
         return;
     }
 
-    // Vérifier que l'ID est valide (seulement pour les nouveaux joueurs)
-    if (!editingPlayerId && !/^[a-z0-9-]+$/.test(playerId)) {
-        showSnackbar('L\'ID doit contenir uniquement des minuscules, chiffres et tirets', 'error');
+    // Générer l'ID à partir du nickname (seulement pour les nouveaux joueurs)
+    const playerId = editingPlayerId || generateIdFromNickname(playerNickname);
+
+    // Vérifier que l'ID n'est pas vide
+    if (!playerId) {
+        showSnackbar('Le pseudo doit contenir au moins un caractère alphanumérique', 'error');
         return;
     }
 
     // Vérifier que l'ID n'existe pas déjà (seulement pour les nouveaux joueurs)
     if (!editingPlayerId && allPlayers.some(p => p.id === playerId)) {
-        showSnackbar('Cet ID existe déjà', 'error');
+        showSnackbar('Un joueur avec ce pseudo existe déjà (ID: ' + playerId + ')', 'error');
         return;
     }
 
     try {
         const playerData = {
-            name: playerName,
+            name: playerNickname,
             nickname: playerNickname,
             favoriteCharacters: selectedCharacters
         };

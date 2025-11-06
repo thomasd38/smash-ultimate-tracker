@@ -272,6 +272,97 @@ h6 {
     hyphens: auto;
 }
 
+/* Session Podium - Detailed Visual Style (for session.html) */
+.session-podium-visual-detailed {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.5rem 0.5rem;
+    background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.podium-position-detailed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 1;
+    max-width: 180px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px 12px 0 0;
+    padding: 1rem 0.75rem 0.75rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.podium-position-detailed.empty {
+    background: transparent;
+    box-shadow: none;
+}
+
+.podium-position-detailed.first {
+    height: 240px;
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    border: 3px solid #ffc107;
+    box-shadow: 0 6px 12px rgba(255, 193, 7, 0.3);
+}
+
+.podium-position-detailed.second {
+    height: 200px;
+    background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 100%);
+    border: 3px solid #adb5bd;
+    box-shadow: 0 6px 12px rgba(173, 181, 189, 0.3);
+}
+
+.podium-position-detailed.third {
+    height: 170px;
+    background: linear-gradient(135deg, #cd7f32 0%, #e8a87c 100%);
+    border: 3px solid #d4a574;
+    box-shadow: 0 6px 12px rgba(205, 127, 50, 0.3);
+}
+
+.podium-medal-detailed {
+    font-size: 3rem;
+    margin-bottom: 0.6rem;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.podium-player-name-detailed {
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-align: center;
+    color: #212529;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    line-height: 1.2;
+    margin-bottom: 0.6rem;
+    flex-shrink: 0;
+}
+
+.podium-winrate {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.podium-stats {
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
 /* Footer */
 footer {
     margin-top: auto;
@@ -333,6 +424,43 @@ footer i.fa-heart {
     .podium-player-name {
         font-size: 0.7rem;
     }
+
+    /* Podium détaillé responsive */
+    .podium-position-detailed {
+        max-width: 140px;
+        padding: 0.75rem 0.5rem 0.6rem;
+    }
+
+    .podium-position-detailed.first {
+        height: 200px;
+    }
+
+    .podium-position-detailed.second {
+        height: 170px;
+    }
+
+    .podium-position-detailed.third {
+        height: 145px;
+    }
+
+    .podium-medal-detailed {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .podium-player-name-detailed {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .podium-winrate {
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .podium-stats {
+        font-size: 0.8rem;
+    }
 }
 
 @media (max-width: 576px) {
@@ -347,6 +475,46 @@ footer i.fa-heart {
 
     .d-md-flex .btn {
         margin-bottom: 10px;
+    }
+
+    /* Podium détaillé très petit écran */
+    .session-podium-visual-detailed {
+        gap: 0.5rem;
+        padding: 1rem 0.25rem;
+    }
+
+    .podium-position-detailed {
+        max-width: 100px;
+        padding: 0.5rem 0.35rem;
+    }
+
+    .podium-position-detailed.first {
+        height: 150px;
+    }
+
+    .podium-position-detailed.second {
+        height: 125px;
+    }
+
+    .podium-position-detailed.third {
+        height: 105px;
+    }
+
+    .podium-medal-detailed {
+        font-size: 2rem;
+    }
+
+    .podium-player-name-detailed {
+        font-size: 0.85rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .podium-winrate {
+        font-size: 1.1rem;
+    }
+
+    .podium-stats {
+        font-size: 0.75rem;
     }
 }
 

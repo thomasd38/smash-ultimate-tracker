@@ -263,20 +263,20 @@ async function displayMatches() {
 function displayPodium() {
     const podiumContainer = document.getElementById('podium-container');
     if (!podiumContainer) return;
-    
+
     // Calculer les statistiques des joueurs
     const playerStats = calculatePlayerStats();
-    
+
     if (playerStats.length === 0) {
         podiumContainer.innerHTML = `
-            <div class="col-12 text-muted py-4">
+            <div class="col-12 text-center text-muted py-4">
                 <i class="fas fa-inbox fa-3x mb-3"></i>
                 <p>Aucune donnée pour le classement</p>
             </div>
         `;
         return;
     }
-    
+
     // Trier par winrate (puis par nombre de victoires en cas d'égalité)
     playerStats.sort((a, b) => {
         if (b.winrate !== a.winrate) {
@@ -284,57 +284,92 @@ function displayPodium() {
         }
         return b.wins - a.wins;
     });
-    
-    // Afficher le podium
-    podiumContainer.innerHTML = playerStats.map((player, index) => {
-        const position = index + 1;
-        let badgeClass = 'bg-secondary';
-        let icon = 'fa-user';
-        
-        if (position === 1) {
-            badgeClass = 'bg-warning text-dark';
-            icon = 'fa-crown';
-        } else if (position === 2) {
-            badgeClass = 'bg-secondary';
-            icon = 'fa-medal';
-        } else if (position === 3) {
-            badgeClass = 'bg-danger';
-            icon = 'fa-award';
-        }
-        
-        return `
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                <div class="card h-100 ${position === 1 ? 'border-warning border-3' : ''}">
-                    <div class="card-body text-center">
-                        <div class="mb-2">
-                            <span class="badge ${badgeClass} fs-5">
-                                <i class="fas ${icon}"></i> #${position}
-                            </span>
-                        </div>
-                        <h5 class="card-title">${player.name}</h5>
-                        <div class="mb-2">
-                            <div class="progress" style="height: 25px;">
-                                <div class="progress-bar ${player.winrate >= 50 ? 'bg-success' : 'bg-danger'}" 
-                                     role="progressbar" 
-                                     style="width: ${player.winrate}%"
-                                     aria-valuenow="${player.winrate}" 
-                                     aria-valuemin="0" 
-                                     aria-valuemax="100">
-                                    ${player.winrate.toFixed(0)}%
-                                </div>
+
+    // Séparer le top 3 et les autres
+    const top3 = playerStats.slice(0, 3);
+    const others = playerStats.slice(3);
+    const medals = ['🥇', '🥈', '🥉'];
+
+    // Réorganiser pour affichage podium : 2e, 1er, 3e
+    const podiumOrder = top3.length >= 3 ? [top3[1], top3[0], top3[2]] :
+                        top3.length === 2 ? [top3[1], top3[0]] :
+                        top3.length === 1 ? [null, top3[0]] : [];
+
+    // Créer le HTML du podium visuel (top 3)
+    let podiumHTML = `
+        <div class="col-12 mb-4">
+            <div class="session-podium-visual-detailed">
+                ${podiumOrder.map((player, visualIndex) => {
+                    if (!player) return '<div class="podium-position-detailed empty"></div>';
+
+                    // Déterminer la vraie position (médaille)
+                    let realIndex;
+                    if (top3.length >= 3) {
+                        realIndex = visualIndex === 0 ? 1 : visualIndex === 1 ? 0 : 2; // 2e, 1er, 3e
+                    } else if (top3.length === 2) {
+                        realIndex = visualIndex === 0 ? 1 : 0; // 2e, 1er
+                    } else {
+                        realIndex = 0; // 1er seul
+                    }
+
+                    const heightClass = realIndex === 0 ? 'first' : realIndex === 1 ? 'second' : 'third';
+
+                    const winrateColor = player.winrate >= 50 ? 'text-success' : 'text-danger';
+
+                    return `
+                        <div class="podium-position-detailed ${heightClass}">
+                            <div class="podium-medal-detailed">${medals[realIndex]}</div>
+                            <div class="podium-player-name-detailed">${player.name}</div>
+                            <div class="podium-winrate ${winrateColor}">${player.winrate.toFixed(0)}%</div>
+                            <div class="podium-stats">
+                                <span class="text-success">${player.wins}V</span>
+                                <span class="text-muted">-</span>
+                                <span class="text-danger">${player.losses}D</span>
                             </div>
                         </div>
-                        <p class="mb-1">
-                            <i class="fas fa-trophy text-success"></i> ${player.wins} victoires
-                        </p>
-                        <p class="mb-0 text-muted">
-                            <i class="fas fa-times-circle text-danger"></i> ${player.losses} défaites
-                        </p>
-                    </div>
+                    `;
+                }).join('')}
+            </div>
+        </div>
+    `;
+
+    // Créer le HTML de la liste des autres joueurs
+    let othersHTML = '';
+    if (others.length > 0) {
+        othersHTML = `
+            <div class="col-12">
+                <div class="list-group">
+                    ${others.map((player, index) => {
+                        const position = index + 4; // Position commence à 4
+                        return `
+                            <div class="list-group-item">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center gap-3 flex-grow-1">
+                                        <span class="badge bg-secondary">#${position}</span>
+                                        <span class="fw-bold">${player.name}</span>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="text-center">
+                                            <small class="text-muted d-block">Winrate</small>
+                                            <span class="badge ${player.winrate >= 50 ? 'bg-success' : 'bg-danger'}">${player.winrate.toFixed(0)}%</span>
+                                        </div>
+                                        <div class="text-center">
+                                            <small class="text-muted d-block">W/L</small>
+                                            <span class="text-success">${player.wins}</span>
+                                            <span class="text-muted">/</span>
+                                            <span class="text-danger">${player.losses}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
                 </div>
             </div>
         `;
-    }).join('');
+    }
+
+    podiumContainer.innerHTML = podiumHTML + othersHTML;
 }
 
 // ===================================

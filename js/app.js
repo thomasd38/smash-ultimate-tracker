@@ -176,11 +176,11 @@ async function handleCreateSession(e) {
 }
 
 // Charger toutes les sessions
-function loadSessions() {
+async function loadSessions() {
     const sessionsList = document.getElementById('sessions-list');
-    
+
     if (!sessionsList) return;
-    
+
     // Afficher un loader
     sessionsList.innerHTML = `
         <div class="col-12 text-center py-5">
@@ -190,80 +190,184 @@ function loadSessions() {
             <p class="mt-3">Chargement des sessions...</p>
         </div>
     `;
-    
-    // Récupérer les sessions depuis Firestore
-    db.collection('sessions')
-        .orderBy('createdAt', 'desc')
-        .get()
-        .then((querySnapshot) => {
-            if (querySnapshot.empty) {
-                sessionsList.innerHTML = `
-                    <div class="col-12 text-center text-muted py-5">
-                        <i class="fas fa-inbox fa-3x mb-3"></i>
-                        <p>Aucune session pour le moment. Créez-en une pour commencer !</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            // Vider la liste
-            sessionsList.innerHTML = '';
-            
-            // Afficher chaque session
-            querySnapshot.forEach((doc) => {
-                const session = doc.data();
-                const sessionCard = createSessionCard(doc.id, session);
-                sessionsList.innerHTML += sessionCard;
-            });
-            
-            console.log(`✅ ${querySnapshot.size} session(s) chargée(s)`);
-        })
-        .catch((error) => {
-            console.error('❌ Erreur lors du chargement des sessions:', error);
+
+    try {
+        // Récupérer les sessions depuis Firestore
+        const querySnapshot = await db.collection('sessions')
+            .orderBy('createdAt', 'desc')
+            .get();
+
+        if (querySnapshot.empty) {
             sessionsList.innerHTML = `
-                <div class="col-12">
-                    <div class="alert alert-danger" role="alert">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        Erreur lors du chargement des sessions
-                    </div>
+                <div class="col-12 text-center text-muted py-5">
+                    <i class="fas fa-inbox fa-3x mb-3"></i>
+                    <p>Aucune session pour le moment. Créez-en une pour commencer !</p>
                 </div>
             `;
-        });
+            return;
+        }
+
+        // Vider la liste
+        sessionsList.innerHTML = '';
+
+        // Afficher chaque session avec ses statistiques
+        for (const doc of querySnapshot.docs) {
+            const session = doc.data();
+            const sessionCard = await createSessionCard(doc.id, session);
+            sessionsList.innerHTML += sessionCard;
+        }
+
+        console.log(`✅ ${querySnapshot.size} session(s) chargée(s)`);
+    } catch (error) {
+        console.error('❌ Erreur lors du chargement des sessions:', error);
+        sessionsList.innerHTML = `
+            <div class="col-12">
+                <div class="alert alert-danger" role="alert">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Erreur lors du chargement des sessions
+                </div>
+            </div>
+        `;
+    }
 }
 
 // Créer le HTML d'une carte de session
-function createSessionCard(sessionId, sessionData) {
+async function createSessionCard(sessionId, sessionData) {
     const date = sessionData.date ? new Date(sessionData.date).toLocaleDateString('fr-FR') : 'Date inconnue';
-    
+
+    // Récupérer le nombre de matchs
+    let matchCount = 0;
+    try {
+        const matchesSnapshot = await db.collection('sessions').doc(sessionId).collection('matches').get();
+        matchCount = matchesSnapshot.size;
+    } catch (error) {
+        console.error('Erreur lors du comptage des matchs:', error);
+    }
+
+    // Récupérer les joueurs et calculer le podium
+    const playerIds = sessionData.playerIds || [];
+    const playerCount = playerIds.length;
+
+    let podiumHTML = '';
+    if (matchCount > 0) {
+        try {
+            // Récupérer tous les matchs pour calculer les scores
+            const matchesSnapshot = await db.collection('sessions').doc(sessionId).collection('matches').get();
+            const playerScores = {};
+
+            // Initialiser les scores
+            playerIds.forEach(playerId => {
+                playerScores[playerId] = { wins: 0, total: 0, name: '' };
+            });
+
+            // Récupérer les noms des joueurs
+            const usersSnapshot = await db.collection('users').get();
+            const usersMap = {};
+            usersSnapshot.forEach(doc => {
+                usersMap[doc.id] = doc.data().name;
+            });
+
+            // Calculer les victoires et le total de matchs
+            matchesSnapshot.forEach(doc => {
+                const match = doc.data();
+                const winnerId = match.winner?.id;
+                const player1Id = match.player1?.id;
+                const player2Id = match.player2?.id;
+
+                if (winnerId && playerScores[winnerId] !== undefined) {
+                    playerScores[winnerId].wins++;
+                    playerScores[winnerId].name = usersMap[winnerId] || 'Inconnu';
+                }
+
+                if (player1Id && playerScores[player1Id] !== undefined) {
+                    playerScores[player1Id].total++;
+                    playerScores[player1Id].name = usersMap[player1Id] || 'Inconnu';
+                }
+
+                if (player2Id && playerScores[player2Id] !== undefined) {
+                    playerScores[player2Id].total++;
+                    playerScores[player2Id].name = usersMap[player2Id] || 'Inconnu';
+                }
+            });
+
+            // Calculer le winrate et trier par winrate (puis par nombre de victoires en cas d'égalité)
+            const sortedPlayers = Object.entries(playerScores)
+                .map(([id, data]) => ({
+                    id,
+                    ...data,
+                    winrate: data.total > 0 ? (data.wins / data.total) * 100 : 0
+                }))
+                .sort((a, b) => {
+                    if (b.winrate !== a.winrate) {
+                        return b.winrate - a.winrate;
+                    }
+                    return b.wins - a.wins;
+                });
+
+            // Créer le podium (top 3) - Affichage visuel type podium
+            const top3 = sortedPlayers.slice(0, 3);
+            const medals = ['🥇', '🥈', '🥉'];
+
+            // Réorganiser pour affichage podium : 2e, 1er, 3e
+            const podiumOrder = top3.length >= 3 ? [top3[1], top3[0], top3[2]] :
+                                top3.length === 2 ? [top3[1], top3[0]] :
+                                top3.length === 1 ? [null, top3[0]] : [];
+
+            podiumHTML = `
+                <div class="session-podium-visual">
+                    ${podiumOrder.map((player, visualIndex) => {
+                        if (!player) return '<div class="podium-position empty"></div>';
+
+                        // Déterminer la vraie position (médaille)
+                        let realIndex;
+                        if (top3.length >= 3) {
+                            realIndex = visualIndex === 0 ? 1 : visualIndex === 1 ? 0 : 2; // 2e, 1er, 3e
+                        } else if (top3.length === 2) {
+                            realIndex = visualIndex === 0 ? 1 : 0; // 2e, 1er
+                        } else {
+                            realIndex = 0; // 1er seul
+                        }
+
+                        const heightClass = realIndex === 0 ? 'first' : realIndex === 1 ? 'second' : 'third';
+
+                        return `
+                            <div class="podium-position ${heightClass}">
+                                <div class="podium-medal">${medals[realIndex]}</div>
+                                <div class="podium-player-name">${player.name}</div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+        } catch (error) {
+            console.error('Erreur lors du calcul du podium:', error);
+        }
+    }
+
     return `
         <div class="col-md-6 col-lg-4 mb-3 fade-in">
             <div class="card session-card" onclick="viewSession('${sessionId}')">
                 <div class="card-body">
                     <div class="session-header">
-                        <h5 class="card-title mb-0">
+                        <h5 class="card-title mb-3">
                             <i class="fas fa-gamepad text-primary"></i>
                             ${sessionData.name}
                         </h5>
                     </div>
-                    <p class="session-date mt-2">
-                        <i class="fas fa-calendar"></i> ${date}
-                    </p>
-                    <div class="session-stats">
+                    ${podiumHTML}
+                    <div class="session-stats mt-3">
                         <div class="stat-item">
                             <i class="fas fa-users"></i>
-                            <span>0 joueurs</span>
+                            <span>${playerCount} joueur${playerCount > 1 ? 's' : ''}</span>
                         </div>
                         <div class="stat-item">
                             <i class="fas fa-trophy"></i>
-                            <span>0 matchs</span>
+                            <span>${matchCount} match${matchCount > 1 ? 's' : ''}</span>
                         </div>
                     </div>
-                </div>
-                <div class="card-footer bg-transparent">
-                    <small class="text-muted">
-                        <i class="fas fa-clock"></i> 
-                        Créée le ${date}
-                    </small>
+                    <p class="session-date mt-2 mb-0">
+                        <i class="fas fa-calendar"></i> ${date}
+                    </p>
                 </div>
             </div>
         </div>

@@ -165,7 +165,7 @@ function displaySessionInfo() {
             day: 'numeric'
         });
 
-        const typeText = currentSession.sessionType === 'online' ? 'Online' : 'LAN (Local)';
+        const typeText = currentSession.sessionType === 'online' ? 'Online' : 'LAN';
 
         sessionDateEl.innerHTML = `
             <i class="fas fa-calendar"></i> ${formattedDate}
@@ -186,9 +186,10 @@ async function displayMatches() {
 
     if (matches.length === 0) {
         matchesList.innerHTML = `
-            <div class="text-center text-muted py-3">
-                <i class="fas fa-inbox fa-3x mb-3"></i>
-                <p>Aucun match pour cette session</p>
+            <div class="text-center text-muted py-4">
+                <i class="fas fa-inbox fa-3x mb-3 opacity-50"></i>
+                <p class="mb-0">Aucun match pour cette session</p>
+                <small class="text-muted">Cliquez sur "Ajouter un match" pour commencer</small>
             </div>
         `;
         return;
@@ -205,43 +206,51 @@ async function displayMatches() {
         console.error('Erreur lors du chargement des personnages:', error);
     }
 
-    matchesList.innerHTML = matches.map((match, index) => {
+    matchesList.innerHTML = matches.map((match) => {
         const isPlayer1Winner = match.winner.id === match.player1.id;
         const isPlayer2Winner = match.winner.id === match.player2.id;
 
-        // Récupérer les icônes des personnages
-        const char1Icon = charactersMap[match.player1.character.id]?.images?.icon || '';
-        const char2Icon = charactersMap[match.player2.character.id]?.images?.icon || '';
+        // Récupérer les données des personnages
+        const char1 = charactersMap[match.player1.character.id];
+        const char2 = charactersMap[match.player2.character.id];
+        const char1Icon = char1?.images?.icon || '';
+        const char2Icon = char2?.images?.icon || '';
+
+        // Inverser le score si le joueur 2 gagne (pour que le 3 soit toujours du côté du vainqueur)
+        let displayScore = match.score;
+        if (isPlayer2Winner) {
+            const scoreParts = match.score.split('-');
+            displayScore = `${scoreParts[1]}-${scoreParts[0]}`;
+        }
 
         return `
-        <div class="card mb-2 match-card">
-            <div class="card-body p-2">
-                <div class="row align-items-center g-2">
-                    <!-- Numéro du match -->
-                    <div class="col-auto">
-                        <span class="badge bg-secondary">#${matches.length - index}</span>
-                    </div>
-
-                    <!-- Joueur 1 -->
-                    <div class="col text-end">
-                        <div class="d-flex align-items-center justify-content-end gap-2">
-                            <span class="player-name ${isPlayer1Winner ? 'text-success fw-bold' : ''}">${match.player1.name}</span>
-                            ${char1Icon ? `<img src="${char1Icon}" alt="${match.player1.character.name}" class="character-icon" title="${match.player1.character.name}">` : ''}
+        <div class="match-item ${isPlayer1Winner ? 'winner-left' : 'winner-right'}">
+            <div class="match-content">
+                <!-- Joueur 1 -->
+                <div class="match-player match-player-left ${isPlayer1Winner ? 'winner' : 'loser'}">
+                    <div class="player-info">
+                        <div class="player-character">
+                            ${char1Icon ? `<img src="${char1Icon}" alt="${match.player1.character.name}" class="character-portrait" title="${match.player1.character.name}">` : ''}
+                        </div>
+                        <div class="player-details">
+                            <div class="player-name">${match.player1.name}</div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Score -->
-                    <div class="col-auto text-center">
-                        <span class="match-score ${isPlayer1Winner ? 'text-success fw-bold' : isPlayer2Winner ? 'text-danger fw-bold' : ''}">${match.score}</span>
-                        ${isPlayer1Winner ? '<i class="fas fa-trophy text-warning ms-1"></i>' : ''}
-                        ${isPlayer2Winner ? '<i class="fas fa-trophy text-warning ms-1"></i>' : ''}
-                    </div>
+                <!-- Score central -->
+                <div class="match-score-container">
+                    <div class="match-score-display">${displayScore}</div>
+                </div>
 
-                    <!-- Joueur 2 -->
-                    <div class="col text-start">
-                        <div class="d-flex align-items-center gap-2">
-                            ${char2Icon ? `<img src="${char2Icon}" alt="${match.player2.character.name}" class="character-icon" title="${match.player2.character.name}">` : ''}
-                            <span class="player-name ${isPlayer2Winner ? 'text-success fw-bold' : ''}">${match.player2.name}</span>
+                <!-- Joueur 2 -->
+                <div class="match-player match-player-right ${isPlayer2Winner ? 'winner' : 'loser'}">
+                    <div class="player-info">
+                        <div class="player-character">
+                            ${char2Icon ? `<img src="${char2Icon}" alt="${match.player2.character.name}" class="character-portrait" title="${match.player2.character.name}">` : ''}
+                        </div>
+                        <div class="player-details">
+                            <div class="player-name">${match.player2.name}</div>
                         </div>
                     </div>
                 </div>

@@ -350,6 +350,8 @@ function initAuth() {
     activePage = 'admin';
   } else if (currentPage.includes('session.html')) {
     activePage = 'accueil'; // Pas de page spécifique pour session
+  } else if (currentPage.includes('stats.html')) {
+    activePage = 'statistiques';
   }
 
   // Initialiser la navbar d'abord

@@ -1,0 +1,15 @@
+{
+  "name": "Smash Ultimate Tracker",
+  "short_name": "SmashTracker",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#d72727",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

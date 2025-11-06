@@ -261,8 +261,9 @@ function renderCharactersGrid(filter = '') {
 
     grid.innerHTML = filteredChars.map(char => {
         const isSelected = selectedCharacters.includes(char.id);
+        const isMiiFighter = char.id.startsWith('mii-');
         return `
-            <div class="character-card-small ${isSelected ? 'selected' : ''}"
+            <div class="character-card-small ${isMiiFighter ? 'mii-card' : ''} ${isSelected ? 'selected' : ''}"
                  onclick="toggleCharacter('${char.id}')"
                  title="${char.name}">
                 <img src="${char.images.icon}" alt="${char.name}">

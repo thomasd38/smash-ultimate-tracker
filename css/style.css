@@ -290,6 +290,11 @@ h6 {
     object-fit: contain;
 }
 
+.mii-card img, .mii-card-match img {
+    width: 190% !important;
+    margin-left: -50%;
+}
+
 .character-check {
     position: absolute;
     top: 2px;
@@ -946,6 +951,7 @@ footer i.fa-heart {
 }
 
 .character-card {
+    overflow: hidden;
     position: relative;
     cursor: pointer;
     border: 2px solid transparent;

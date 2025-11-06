@@ -691,7 +691,7 @@ function renderCharacterGrid(gridId, searchId, favoriteIds, onSelectCallback) {
         const sortedChars = [...favorites, ...others];
 
         grid.innerHTML = sortedChars.map(char => `
-            <div class="character-card ${favoriteIds.includes(char.id) ? 'favorite' : ''}"
+            <div class="character-card ${char.id.startsWith('mii-') ? 'mii-card-match' : ''} ${favoriteIds.includes(char.id) ? 'favorite' : ''} ${favoriteIds.includes(char.id) ? 'favorite' : ''}"
                  onclick="window.${onSelectCallback.name}('${char.id}', '${char.name.replace(/'/g, "\\'")}')">
                 <img src="${char.images.icon}" alt="${char.name}" title="${char.name}">
                 <div class="character-name">${char.name}</div>

@@ -117,10 +117,10 @@ function displayPlayers() {
                         <div class="d-flex justify-content-between align-items-start mb-3">
                             <div>
                                 <h5 class="card-title mb-1">
-                                    <i class="fas fa-user text-primary"></i> ${player.nickname}
+                                    <i class="fas fa-user text-primary"></i> ${player.nickname || player.name}
                                 </h5>
                                 <p class="text-muted mb-0">
-                                    <small><code>${player.name}</code></small>
+                                    <small><code>${player.id}</code></small>
                                 </p>
                             </div>
                             <div class="btn-group">
@@ -192,14 +192,23 @@ function openPlayerModal(playerId = null) {
 
     const modalTitle = document.getElementById('playerModalTitle');
     const playerNicknameInput = document.getElementById('player-nickname');
-    const preview = document.getElementById('generated-id-preview');
+    const previewContainer = document.getElementById('id-preview-container');
+
+    // Vérifier que les éléments existent
+    if (!playerNicknameInput) {
+        console.error('❌ Élément player-nickname introuvable');
+        return;
+    }
 
     if (playerId) {
         // Mode édition
         const player = allPlayers.find(p => p.id === playerId);
         if (!player) return;
 
-        modalTitle.innerHTML = '<i class="fas fa-edit"></i> Modifier un joueur';
+        if (modalTitle) {
+            modalTitle.innerHTML = '<i class="fas fa-edit"></i> Modifier un joueur';
+        }
+
         playerNicknameInput.value = player.nickname || '';
         selectedCharacters = [...(player.favoriteCharacters || [])];
 
@@ -208,15 +217,16 @@ function openPlayerModal(playerId = null) {
         playerNicknameInput.classList.add('bg-light');
 
         // Afficher l'ID actuel (non modifiable)
-        if (preview) {
-            preview.textContent = player.id;
-            preview.style.color = '#6c757d';
-            preview.parentElement.innerHTML = `Le pseudo ne peut pas être modifié (ID: <strong>${player.id}</strong>)`;
-            preview.parentElement.classList.add('text-muted');
+        if (previewContainer) {
+            previewContainer.innerHTML = `Le pseudo ne peut pas être modifié (ID: <strong>${player.id}</strong>)`;
+            previewContainer.classList.add('text-muted');
         }
     } else {
         // Mode ajout
-        modalTitle.innerHTML = '<i class="fas fa-user-plus"></i> Ajouter un joueur';
+        if (modalTitle) {
+            modalTitle.innerHTML = '<i class="fas fa-user-plus"></i> Ajouter un joueur';
+        }
+
         playerNicknameInput.value = '';
         selectedCharacters = [];
 
@@ -225,11 +235,9 @@ function openPlayerModal(playerId = null) {
         playerNicknameInput.classList.remove('bg-light');
 
         // Réinitialiser l'aperçu
-        if (preview) {
-            preview.textContent = '-';
-            preview.style.color = '#6c757d';
-            preview.parentElement.innerHTML = `L'ID sera généré automatiquement : <strong id="generated-id-preview">-</strong>`;
-            preview.parentElement.classList.remove('text-muted');
+        if (previewContainer) {
+            previewContainer.innerHTML = `L'ID sera généré automatiquement : <strong id="generated-id-preview">-</strong>`;
+            previewContainer.classList.remove('text-muted');
         }
     }
 
@@ -405,8 +413,8 @@ function confirmDeletePlayer(playerId) {
     if (!player) return;
 
     editingPlayerId = playerId;
-    document.getElementById('delete-player-name').textContent = 
-        `${player.name} (@${player.nickname})`;
+    document.getElementById('delete-player-name').textContent =
+        `${player.nickname || player.name} (ID: ${player.id})`;
     deleteModal.show();
 }
 

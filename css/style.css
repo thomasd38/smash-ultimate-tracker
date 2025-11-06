@@ -485,36 +485,38 @@ footer i.fa-heart {
 
     .podium-position-detailed {
         max-width: 100px;
-        padding: 0.5rem 0.35rem;
+        padding: 0.5rem 0.35rem 0.4rem;
     }
 
     .podium-position-detailed.first {
-        height: 150px;
+        height: 170px;
     }
 
     .podium-position-detailed.second {
-        height: 125px;
+        height: 145px;
     }
 
     .podium-position-detailed.third {
-        height: 105px;
+        height: 125px;
     }
 
     .podium-medal-detailed {
         font-size: 2rem;
+        margin-bottom: 0.4rem;
     }
 
     .podium-player-name-detailed {
         font-size: 0.85rem;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.4rem;
     }
 
     .podium-winrate {
         font-size: 1.1rem;
+        margin-bottom: 0.4rem;
     }
 
     .podium-stats {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
     }
 }
 

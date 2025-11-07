@@ -34,6 +34,7 @@ body {
     display: flex;
     flex-direction: column;
     font-size: 0.9rem;
+    padding-top: 70px; /* Espace pour la navbar fixe */
 }
 
 h1 {
@@ -63,7 +64,6 @@ h6 {
 /* Container principal */
 .container {
     flex: 1;
-    padding-top: 80px; /* Espace pour la navbar fixe */
 }
 
 /* Navigation - Style Nintendo avec navbar fixe */
@@ -525,8 +525,8 @@ footer i.fa-gamepad {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .container {
-        padding-top: 70px; /* Ajustement pour navbar fixe en mobile */
+    body {
+        padding-top: 80px; /* Plus d'espace pour navbar fixe en mobile */
     }
 
     .navbar-brand {

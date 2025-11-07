@@ -4,6 +4,12 @@
 
 /* Variables CSS */
 :root {
+    /* Couleurs Nintendo pour navbar/footer */
+    --nintendo-red: #E60012;
+    --nintendo-white: #FFFFFF;
+    --nintendo-dark-red: #C5000F;
+
+    /* Couleurs principales (inchangées) */
     --primary-color: #0d6efd;
     --secondary-color: #6c757d;
     --success-color: #198754;
@@ -57,25 +63,49 @@ h6 {
 /* Container principal */
 .container {
     flex: 1;
+    padding-top: 80px; /* Espace pour la navbar fixe */
 }
 
-/* Navigation */
+/* Navigation - Style Nintendo avec navbar fixe */
+.navbar {
+    background-color: var(--nintendo-red) !important;
+    box-shadow: 0 2px 10px rgba(230, 0, 18, 0.3);
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+}
+
 .navbar-brand {
     font-weight: bold;
     font-size: 1.2rem;
+    color: var(--nintendo-white) !important;
 }
 
 .navbar-brand i {
-    color: var(--warning-color);
+    color: var(--nintendo-white);
 }
 
 .nav-link {
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
     font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+    border-radius: 5px;
+    margin: 0 0.2rem;
 }
 
 .nav-link:hover {
-    color: var(--warning-color) !important;
+    color: var(--nintendo-white) !important;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.nav-link.active {
+    color: var(--nintendo-white) !important;
+    background-color: var(--nintendo-dark-red);
+    font-weight: 600;
 }
 
 /* Cards */
@@ -458,13 +488,30 @@ h6 {
     white-space: nowrap;
 }
 
-/* Footer */
-footer {
+/* Footer - Style Nintendo */
+footer,
+footer.bg-dark {
     margin-top: auto;
+    background-color: var(--nintendo-red) !important;
+    color: var(--nintendo-white) !important;
+    box-shadow: 0 -2px 10px rgba(230, 0, 18, 0.3);
+}
+
+footer .text-muted {
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+footer .text-white {
+    color: var(--nintendo-white) !important;
 }
 
 footer i.fa-heart {
     animation: heartbeat 1.5s ease-in-out infinite;
+    color: var(--nintendo-white);
+}
+
+footer i.fa-gamepad {
+    color: var(--nintendo-white);
 }
 
 @keyframes heartbeat {
@@ -478,6 +525,10 @@ footer i.fa-heart {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .container {
+        padding-top: 70px; /* Ajustement pour navbar fixe en mobile */
+    }
+
     .navbar-brand {
         font-size: 1.2rem;
     }

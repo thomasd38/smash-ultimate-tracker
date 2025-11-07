@@ -715,17 +715,24 @@ function displayMatchHistory() {
     let html = '<div class="match-history-list">';
 
     displayMatches.forEach(match => {
-        const player1Char = match.player1?.character;
-        const player2Char = match.player2?.character;
+        // Déterminer quel joueur afficher à gauche (toujours player1Id du matchup)
+        const isPlayer1Left = match.player1?.id === player1Id;
+
+        // Réorganiser les données pour que player1Id soit toujours à gauche
+        const leftPlayer = isPlayer1Left ? match.player1 : match.player2;
+        const rightPlayer = isPlayer1Left ? match.player2 : match.player1;
+
+        const leftChar = leftPlayer?.character;
+        const rightChar = rightPlayer?.character;
         const winnerId = match.winner?.id;
 
-        const player1CharData = allCharacters.find(c => c.id === player1Char?.id);
-        const player2CharData = allCharacters.find(c => c.id === player2Char?.id);
+        const leftCharData = allCharacters.find(c => c.id === leftChar?.id);
+        const rightCharData = allCharacters.find(c => c.id === rightChar?.id);
 
-        const player1Data = allPlayers.find(p => p.id === match.player1?.id);
-        const player2Data = allPlayers.find(p => p.id === match.player2?.id);
+        const leftPlayerData = allPlayers.find(p => p.id === leftPlayer?.id);
+        const rightPlayerData = allPlayers.find(p => p.id === rightPlayer?.id);
 
-        const player1Won = winnerId === match.player1?.id;
+        const leftPlayerWon = winnerId === leftPlayer?.id;
 
         const date = match.date ? new Date(match.date).toLocaleDateString('fr-FR', {
             day: '2-digit',
@@ -738,27 +745,27 @@ function displayMatchHistory() {
                 <!-- Version Desktop -->
                 <div class="match-history-desktop">
                     <div class="match-result-badge">
-                        <span class="badge ${player1Won ? 'bg-success' : 'bg-danger'}">
-                            ${player1Won ? 'V' : 'D'}
+                        <span class="badge ${leftPlayerWon ? 'bg-success' : 'bg-danger'}">
+                            ${leftPlayerWon ? 'V' : 'D'}
                         </span>
                     </div>
                     <div class="match-characters">
                         <div class="match-char-player">
-                            ${player1CharData?.images?.icon ?
-                                `<img src="${player1CharData.images.icon}" alt="${player1CharData.name}" class="char-icon">` :
+                            ${leftCharData?.images?.icon ?
+                                `<img src="${leftCharData.images.icon}" alt="${leftCharData.name}" class="char-icon">` :
                                 ''
                             }
-                            <span class="char-name fw-bold">${player1Char?.name || '?'}</span>
-                            <small class="text-muted">(${player1Data?.nickname || player1Data?.name || '?'})</small>
+                            <span class="char-name fw-bold">${leftChar?.name || '?'}</span>
+                            <small class="text-muted">(${leftPlayerData?.nickname || leftPlayerData?.name || '?'})</small>
                         </div>
                         <span class="match-vs">vs</span>
                         <div class="match-char-opponent">
-                            ${player2CharData?.images?.icon ?
-                                `<img src="${player2CharData.images.icon}" alt="${player2CharData.name}" class="char-icon">` :
+                            ${rightCharData?.images?.icon ?
+                                `<img src="${rightCharData.images.icon}" alt="${rightCharData.name}" class="char-icon">` :
                                 ''
                             }
-                            <span class="char-name">${player2Char?.name || '?'}</span>
-                            <small class="text-muted">(${player2Data?.nickname || player2Data?.name || '?'})</small>
+                            <span class="char-name">${rightChar?.name || '?'}</span>
+                            <small class="text-muted">(${rightPlayerData?.nickname || rightPlayerData?.name || '?'})</small>
                         </div>
                     </div>
                     <div class="match-info">
@@ -770,31 +777,31 @@ function displayMatchHistory() {
                 <!-- Version Mobile -->
                 <div class="match-history-mobile">
                     <div class="match-mobile-header">
-                        <span class="badge ${player1Won ? 'bg-success' : 'bg-danger'} me-2">
-                            ${player1Won ? 'VICTOIRE' : 'DÉFAITE'}
+                        <span class="badge ${leftPlayerWon ? 'bg-success' : 'bg-danger'} me-2">
+                            ${leftPlayerWon ? 'VICTOIRE' : 'DÉFAITE'}
                         </span>
                         <span class="match-score-mobile fw-bold">${match.score || '?-?'}</span>
                         <small class="match-date-mobile text-muted ms-auto">${date}</small>
                     </div>
                     <div class="match-mobile-body">
                         <div class="match-mobile-char">
-                            ${player1CharData?.images?.icon ?
-                                `<img src="${player1CharData.images.icon}" alt="${player1CharData.name}" class="char-icon-mobile">` :
+                            ${leftCharData?.images?.icon ?
+                                `<img src="${leftCharData.images.icon}" alt="${leftCharData.name}" class="char-icon-mobile">` :
                                 ''
                             }
-                            <span class="fw-bold">${player1Char?.name || '?'}</span>
+                            <span class="fw-bold">${leftChar?.name || '?'}</span>
                         </div>
                         <span class="match-vs-mobile">vs</span>
                         <div class="match-mobile-char">
-                            ${player2CharData?.images?.icon ?
-                                `<img src="${player2CharData.images.icon}" alt="${player2CharData.name}" class="char-icon-mobile">` :
+                            ${rightCharData?.images?.icon ?
+                                `<img src="${rightCharData.images.icon}" alt="${rightCharData.name}" class="char-icon-mobile">` :
                                 ''
                             }
-                            <span>${player2Char?.name || '?'}</span>
+                            <span>${rightChar?.name || '?'}</span>
                         </div>
                     </div>
                     <div class="match-mobile-footer">
-                        <small class="text-muted">${player1Data?.nickname || player1Data?.name || '?'} vs ${player2Data?.nickname || player2Data?.name || '?'}</small>
+                        <small class="text-muted">${leftPlayerData?.nickname || leftPlayerData?.name || '?'} vs ${rightPlayerData?.nickname || rightPlayerData?.name || '?'}</small>
                     </div>
                 </div>
             </div>

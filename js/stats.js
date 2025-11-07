@@ -196,52 +196,54 @@ function displayGlobalRanking() {
 
 function displayPlayerStats() {
     const playerStats = calculatePlayerStats();
-    
+
     let html = '<div class="row">';
-    
+
     playerStats.forEach(player => {
         const favoriteChar = calculateFavoriteCharacter(player.id);
         const bestMatchup = calculateBestMatchup(player.id);
         const worstMatchup = calculateWorstMatchup(player.id);
-        
+
         html += `
             <div class="col-md-6 col-lg-4 mb-3">
-                <div class="card h-100">
-                    <div class="card-header bg-primary text-white">
-                        <h5 class="mb-0">
-                            <i class="fas fa-user"></i> ${player.name}
-                        </h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <div class="d-flex justify-content-between mb-1">
-                                <span>Winrate</span>
-                                <strong class="${player.winrate >= 50 ? 'text-success' : 'text-danger'}">
-                                    ${player.winrate.toFixed(1)}%
-                                </strong>
-                            </div>
-                            <div class="progress" style="height: 20px;">
-                                <div class="progress-bar ${player.winrate >= 50 ? 'bg-success' : 'bg-danger'}" 
-                                     style="width: ${player.winrate}%">
+                <a href="player-stats.html?player=${player.id}" class="text-decoration-none">
+                    <div class="card h-100 player-card-clickable">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">
+                                <i class="fas fa-user"></i> ${player.name}
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Winrate</span>
+                                    <strong class="${player.winrate >= 50 ? 'text-success' : 'text-danger'}">
+                                        ${player.winrate.toFixed(1)}%
+                                    </strong>
+                                </div>
+                                <div class="progress" style="height: 20px;">
+                                    <div class="progress-bar ${player.winrate >= 50 ? 'bg-success' : 'bg-danger'}"
+                                         style="width: ${player.winrate}%">
+                                    </div>
                                 </div>
                             </div>
+                            <ul class="list-unstyled mb-0">
+                                <li><i class="fas fa-trophy text-warning"></i> ${player.wins} victoires</li>
+                                <li><i class="fas fa-times-circle text-danger"></i> ${player.losses} défaites</li>
+                                <li><i class="fas fa-gamepad text-info"></i> ${player.total} matchs</li>
+                                ${favoriteChar ? `<li><i class="fas fa-star text-warning"></i> Perso favori: ${favoriteChar}</li>` : ''}
+                                ${bestMatchup ? `<li><i class="fas fa-thumbs-up text-success"></i> Meilleur vs: ${bestMatchup}</li>` : ''}
+                                ${worstMatchup ? `<li><i class="fas fa-thumbs-down text-danger"></i> Difficile vs: ${worstMatchup}</li>` : ''}
+                            </ul>
                         </div>
-                        <ul class="list-unstyled mb-0">
-                            <li><i class="fas fa-trophy text-warning"></i> ${player.wins} victoires</li>
-                            <li><i class="fas fa-times-circle text-danger"></i> ${player.losses} défaites</li>
-                            <li><i class="fas fa-gamepad text-info"></i> ${player.total} matchs</li>
-                            ${favoriteChar ? `<li><i class="fas fa-star text-warning"></i> Perso favori: ${favoriteChar}</li>` : ''}
-                            ${bestMatchup ? `<li><i class="fas fa-thumbs-up text-success"></i> Meilleur vs: ${bestMatchup}</li>` : ''}
-                            ${worstMatchup ? `<li><i class="fas fa-thumbs-down text-danger"></i> Difficile vs: ${worstMatchup}</li>` : ''}
-                        </ul>
                     </div>
-                </div>
+                </a>
             </div>
         `;
     });
-    
+
     html += '</div>';
-    
+
     document.getElementById('player-stats-container').innerHTML = html;
 }
 

@@ -1792,3 +1792,25 @@ footer i.fa-heart {
     }
 }
 
+/* ===================================
+   Player Card Clickable
+   =================================== */
+
+.player-card-clickable {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.player-card-clickable:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.player-card-clickable .card-header {
+    transition: background-color 0.3s ease;
+}
+
+.player-card-clickable:hover .card-header {
+    background-color: #0056b3 !important;
+}
+

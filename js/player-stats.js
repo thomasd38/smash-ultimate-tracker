@@ -106,15 +106,33 @@ function initPlayerSelector() {
     select.addEventListener('change', (e) => {
         selectedPlayerId = e.target.value;
         if (selectedPlayerId) {
+            // Mettre à jour l'URL
+            const newUrl = `${window.location.pathname}?player=${selectedPlayerId}`;
+            window.history.pushState({}, '', newUrl);
+
             displayPlayerStats(selectedPlayerId);
         } else {
+            // Supprimer le paramètre de l'URL
+            window.history.pushState({}, '', window.location.pathname);
+
             document.getElementById('stats-content').style.display = 'none';
             document.getElementById('no-player-selected').style.display = 'block';
         }
     });
 
-    // Afficher le message "sélectionnez un joueur"
-    document.getElementById('no-player-selected').style.display = 'block';
+    // Vérifier si un joueur est passé en paramètre dans l'URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const playerIdFromUrl = urlParams.get('player');
+
+    if (playerIdFromUrl && allPlayers.find(p => p.id === playerIdFromUrl)) {
+        // Pré-sélectionner le joueur
+        select.value = playerIdFromUrl;
+        selectedPlayerId = playerIdFromUrl;
+        displayPlayerStats(playerIdFromUrl);
+    } else {
+        // Afficher le message "sélectionnez un joueur"
+        document.getElementById('no-player-selected').style.display = 'block';
+    }
 }
 
 function initMatchLimitSelector() {
@@ -357,20 +375,22 @@ function displayMatchups(playerId, matches) {
         };
     }).filter(m => m.total >= 3); // Au moins 3 matchs pour être significatif
 
-    // Meilleurs matchups (winrate le plus élevé)
+    // Meilleurs matchups (winrate > 50%)
     const bestMatchups = [...matchupArray]
+        .filter(m => m.winrate > 50)
         .sort((a, b) => b.winrate - a.winrate || b.total - a.total)
         .slice(0, 5);
 
-    // Pires matchups (winrate le plus faible)
+    // Pires matchups (winrate < 50%)
     const worstMatchups = [...matchupArray]
+        .filter(m => m.winrate < 50)
         .sort((a, b) => a.winrate - b.winrate || b.total - a.total)
         .slice(0, 5);
 
     // Afficher les meilleurs matchups
     const bestContainer = document.getElementById('best-matchups-container');
     if (bestMatchups.length === 0) {
-        bestContainer.innerHTML = '<p class="text-muted">Pas assez de données (minimum 3 matchs contre un adversaire)</p>';
+        bestContainer.innerHTML = '<p class="text-muted"><i class="fas fa-info-circle"></i> Aucun matchup avec un winrate supérieur à 50%</p>';
     } else {
         bestContainer.innerHTML = bestMatchups.map(m => `
             <a href="matchup.html?player1=${playerId}&player2=${m.id}" class="matchup-link text-decoration-none">
@@ -389,7 +409,7 @@ function displayMatchups(playerId, matches) {
     // Afficher les pires matchups
     const worstContainer = document.getElementById('worst-matchups-container');
     if (worstMatchups.length === 0) {
-        worstContainer.innerHTML = '<p class="text-muted">Pas assez de données (minimum 3 matchs contre un adversaire)</p>';
+        worstContainer.innerHTML = '<p class="text-muted"><i class="fas fa-info-circle"></i> Aucun matchup avec un winrate inférieur à 50% (tu es trop fort bébou ! <3)</p>';
     } else {
         worstContainer.innerHTML = worstMatchups.map(m => `
             <a href="matchup.html?player1=${playerId}&player2=${m.id}" class="matchup-link text-decoration-none">

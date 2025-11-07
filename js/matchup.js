@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (player1Id && player2Id) {
         if (player1Id === player2Id) {
             showError('Vous devez sélectionner deux joueurs différents.');
-            document.getElementById('player-selector-card').style.display = 'block';
+            showNoPlayersSelected();
             return;
         }
 
@@ -48,8 +48,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Charger le matchup
         await loadMatchup();
     } else {
-        // Afficher le sélecteur
-        document.getElementById('player-selector-card').style.display = 'block';
+        // Afficher le message de sélection
+        showNoPlayersSelected();
     }
 });
 
@@ -87,40 +87,49 @@ async function loadPlayersForSelectors() {
         player2Select.appendChild(option2);
     });
 
-    // Gérer les changements de sélection
-    const checkSelection = () => {
+    // Gérer les changements de sélection - Rechargement automatique
+    player1Select.addEventListener('change', async () => {
         const p1 = player1Select.value;
         const p2 = player2Select.value;
-        const btn = document.getElementById('load-matchup-btn');
 
         if (p1 && p2 && p1 !== p2) {
-            btn.disabled = false;
-        } else {
-            btn.disabled = true;
+            // Mettre à jour l'URL
+            const newUrl = `${window.location.pathname}?player1=${p1}&player2=${p2}`;
+            window.history.pushState({}, '', newUrl);
+
+            // Mettre à jour les IDs
+            player1Id = p1;
+            player2Id = p2;
+
+            // Charger le matchup
+            await loadMatchup();
+        } else if (p1 && p2 && p1 === p2) {
+            showError('Vous devez sélectionner deux joueurs différents.');
+        } else if (!p1 || !p2) {
+            showNoPlayersSelected();
         }
-    };
+    });
 
-    player1Select.addEventListener('change', checkSelection);
-    player2Select.addEventListener('change', checkSelection);
+    player2Select.addEventListener('change', async () => {
+        const p1 = player1Select.value;
+        const p2 = player2Select.value;
 
-    // Gérer le clic sur le bouton
-    document.getElementById('load-matchup-btn').addEventListener('click', async () => {
-        player1Id = player1Select.value;
-        player2Id = player2Select.value;
+        if (p1 && p2 && p1 !== p2) {
+            // Mettre à jour l'URL
+            const newUrl = `${window.location.pathname}?player1=${p1}&player2=${p2}`;
+            window.history.pushState({}, '', newUrl);
 
-        if (!player1Id || !player2Id || player1Id === player2Id) {
-            return;
+            // Mettre à jour les IDs
+            player1Id = p1;
+            player2Id = p2;
+
+            // Charger le matchup
+            await loadMatchup();
+        } else if (p1 && p2 && p1 === p2) {
+            showError('Vous devez sélectionner deux joueurs différents.');
+        } else if (!p1 || !p2) {
+            showNoPlayersSelected();
         }
-
-        // Mettre à jour l'URL
-        const newUrl = `${window.location.pathname}?player1=${player1Id}&player2=${player2Id}`;
-        window.history.pushState({}, '', newUrl);
-
-        // Masquer le sélecteur
-        document.getElementById('player-selector-card').style.display = 'none';
-
-        // Charger le matchup
-        await loadMatchup();
     });
 }
 
@@ -152,7 +161,6 @@ async function loadMatchup() {
 
         if (matchupMatches.length === 0) {
             showError('Aucun match trouvé entre ces deux joueurs.');
-            document.getElementById('player-selector-card').style.display = 'block';
             return;
         }
 
@@ -420,9 +428,7 @@ function calculateStreaks(player1Id, player2Id) {
 // ===================================
 
 function displayHeader(player1, player2, stats) {
-    document.getElementById('player1-name').textContent = player1.nickname || player1.name;
-    document.getElementById('player2-name').textContent = player2.nickname || player2.name;
-
+    // Les noms sont maintenant dans les sélecteurs, on met juste à jour les stats
     const player1Winrate = stats.totalMatches > 0 ? (stats.player1Wins / stats.totalMatches * 100).toFixed(1) : 0;
     const player2Winrate = stats.totalMatches > 0 ? (stats.player2Wins / stats.totalMatches * 100).toFixed(1) : 0;
 
@@ -823,6 +829,12 @@ function showLoader() {
     document.getElementById('matchup-loader').style.display = 'block';
     document.getElementById('matchup-content').style.display = 'none';
     document.getElementById('matchup-error').style.display = 'none';
+    document.getElementById('no-players-selected').style.display = 'none';
+
+    // Réinitialiser les stats dans l'en-tête
+    document.getElementById('player1-stats').innerHTML = '-';
+    document.getElementById('player2-stats').innerHTML = '-';
+    document.getElementById('matchup-score').textContent = '- - -';
 }
 
 function hideLoader() {
@@ -834,4 +846,22 @@ function showError(message) {
     document.getElementById('matchup-error').style.display = 'block';
     document.getElementById('matchup-loader').style.display = 'none';
     document.getElementById('matchup-content').style.display = 'none';
+    document.getElementById('no-players-selected').style.display = 'none';
+
+    // Réinitialiser les stats dans l'en-tête
+    document.getElementById('player1-stats').innerHTML = '-';
+    document.getElementById('player2-stats').innerHTML = '-';
+    document.getElementById('matchup-score').textContent = '- - -';
+}
+
+function showNoPlayersSelected() {
+    document.getElementById('no-players-selected').style.display = 'block';
+    document.getElementById('matchup-loader').style.display = 'none';
+    document.getElementById('matchup-content').style.display = 'none';
+    document.getElementById('matchup-error').style.display = 'none';
+
+    // Réinitialiser les stats dans l'en-tête
+    document.getElementById('player1-stats').innerHTML = '-';
+    document.getElementById('player2-stats').innerHTML = '-';
+    document.getElementById('matchup-score').textContent = '- - -';
 }

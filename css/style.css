@@ -1755,3 +1755,40 @@ footer i.fa-heart {
     transform: translateX(5px);
 }
 
+/* ===================================
+   Matchup Player Selectors
+   =================================== */
+
+.matchup-player-select {
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: #212529;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-align: center;
+    padding: 0.5rem 0.75rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.matchup-player-select:hover {
+    background-color: #fff;
+    border-color: #ffc107;
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.5);
+}
+
+.matchup-player-select:focus {
+    background-color: #fff;
+    border-color: #ffc107;
+    box-shadow: 0 0 20px rgba(255, 193, 7, 0.7);
+    outline: none;
+}
+
+/* Responsive pour les sélecteurs */
+@media (max-width: 768px) {
+    .matchup-player-select {
+        font-size: 0.95rem;
+        padding: 0.4rem 0.6rem;
+    }
+}
+

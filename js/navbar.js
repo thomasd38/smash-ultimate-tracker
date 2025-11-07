@@ -20,23 +20,20 @@ function createNavbar(activePage = 'accueil') {
                             <i class="fas fa-home"></i> Accueil
                         </a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle ${activePage === 'statistiques' || activePage === 'stats-joueur' ? 'active' : ''}"
-                           href="#" id="navbarDropdownStats" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-chart-bar"></i> Statistiques
+                    <li class="nav-item">
+                        <a class="nav-link ${activePage === 'statistiques' ? 'active' : ''}" href="stats.html">
+                            <i class="fas fa-chart-bar"></i> Stats globales
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownStats">
-                            <li>
-                                <a class="dropdown-item ${activePage === 'statistiques' ? 'active' : ''}" href="stats.html">
-                                    <i class="fas fa-globe"></i> Statistiques globales
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item ${activePage === 'stats-joueur' ? 'active' : ''}" href="player-stats.html">
-                                    <i class="fas fa-user-chart"></i> Statistiques joueur
-                                </a>
-                            </li>
-                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link ${activePage === 'stats-joueur' ? 'active' : ''}" href="player-stats.html">
+                            <i class="fas fa-user"></i> Stats joueur
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link ${activePage === 'matchup' ? 'active' : ''}" href="matchup.html">
+                            <i class="fas fa-users"></i> Matchup
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link ${activePage === 'joueurs' ? 'active' : ''}" href="players.html" id="nav-players">

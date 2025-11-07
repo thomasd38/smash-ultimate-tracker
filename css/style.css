@@ -1736,3 +1736,22 @@ footer i.fa-heart {
     }
 }
 
+/* ===================================
+   Matchup Links Styles
+   =================================== */
+
+.matchup-link {
+    display: block;
+    transition: all 0.2s;
+}
+
+.matchup-item {
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.matchup-item:hover {
+    background-color: #f8f9fa;
+    transform: translateX(5px);
+}
+

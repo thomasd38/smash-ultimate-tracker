@@ -374,6 +374,8 @@ function initAuth() {
     activePage = 'accueil'; // Pas de page spécifique pour session
   } else if (currentPage.includes('player-stats.html')) {
     activePage = 'stats-joueur';
+  } else if (currentPage.includes('matchup.html')) {
+    activePage = 'matchup';
   } else if (currentPage.includes('stats.html')) {
     activePage = 'statistiques';
   } else if (currentPage.includes('players.html')) {

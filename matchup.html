@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matchup - Smash Ultimate Tracker</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="icon" type="image/png" href="icon.png" />
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#d72727">
+</head>
+<body>
+    <!-- Navigation -->
+    <div id="navbar-container"></div>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <div>
+                        <h1>
+                            <i class="fas fa-swords text-danger"></i>
+                            Matchup
+                        </h1>
+                        <p class="text-muted mb-0">Analyse détaillée du face-à-face</p>
+                    </div>
+                    <a href="player-stats.html" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left"></i> Retour
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sélecteur de joueurs -->
+        <div id="player-selector-card" class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title mb-3">
+                    <i class="fas fa-users"></i> Sélectionner deux joueurs
+                </h5>
+                <div class="row g-3">
+                    <div class="col-md-5">
+                        <label for="player1-selector" class="form-label">Joueur 1</label>
+                        <select id="player1-selector" class="form-select">
+                            <option value="">-- Sélectionner un joueur --</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end justify-content-center">
+                        <span class="fs-3 text-muted">VS</span>
+                    </div>
+                    <div class="col-md-5">
+                        <label for="player2-selector" class="form-label">Joueur 2</label>
+                        <select id="player2-selector" class="form-select">
+                            <option value="">-- Sélectionner un joueur --</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mt-3 text-center">
+                    <button id="load-matchup-btn" class="btn btn-primary" disabled>
+                        <i class="fas fa-chart-line"></i> Charger le matchup
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="matchup-loader" class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Chargement...</span>
+            </div>
+            <p class="mt-3 text-muted">Chargement des données...</p>
+        </div>
+
+        <!-- Message d'erreur -->
+        <div id="matchup-error" class="alert alert-danger" style="display: none;">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span id="error-message"></span>
+        </div>
+
+        <!-- Matchup Content (hidden initially) -->
+        <div id="matchup-content" style="display: none;">
+            
+            <!-- En-tête du matchup (Joueur 1 vs Joueur 2) -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card bg-dark text-white">
+                        <div class="card-body">
+                            <div class="row align-items-center text-center">
+                                <div class="col-md-5">
+                                    <h2 id="player1-name" class="mb-2">-</h2>
+                                    <div id="player1-stats" class="text-muted">-</div>
+                                </div>
+                                <div class="col-md-2">
+                                    <h1 class="mb-0">
+                                        <span id="matchup-score" class="text-warning">- - -</span>
+                                    </h1>
+                                    <small class="text-muted">Victoires</small>
+                                </div>
+                                <div class="col-md-5">
+                                    <h2 id="player2-name" class="mb-2">-</h2>
+                                    <div id="player2-stats" class="text-muted">-</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vue d'ensemble -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="mb-3"><i class="fas fa-chart-line"></i> Vue d'ensemble</h2>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="card text-center h-100">
+                        <div class="card-body">
+                            <i class="fas fa-gamepad fa-2x text-primary mb-2"></i>
+                            <h6 class="text-muted">Matchs joués</h6>
+                            <h2 id="total-matches" class="mb-0">-</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="card text-center h-100">
+                        <div class="card-body">
+                            <i class="fas fa-fire fa-2x text-danger mb-2"></i>
+                            <h6 class="text-muted">Série actuelle</h6>
+                            <h2 id="current-streak" class="mb-0">-</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="card text-center h-100">
+                        <div class="card-body">
+                            <i class="fas fa-trophy fa-2x text-warning mb-2"></i>
+                            <h6 class="text-muted">Meilleure série</h6>
+                            <h2 id="best-streak" class="mb-0">-</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="card text-center h-100">
+                        <div class="card-body">
+                            <i class="fas fa-calendar fa-2x text-info mb-2"></i>
+                            <h6 class="text-muted">Dernier match</h6>
+                            <h2 id="last-match-date" class="mb-0" style="font-size: 1.2rem;">-</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistiques par personnage -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="mb-3"><i class="fas fa-user-ninja"></i> Personnages les plus joués</h2>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0" id="player1-char-header">Joueur 1</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="player1-characters">
+                                <!-- Rempli dynamiquement -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100">
+                        <div class="card-header bg-danger text-white">
+                            <h5 class="mb-0" id="player2-char-header">Joueur 2</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="player2-characters">
+                                <!-- Rempli dynamiquement -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Records & Achievements -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="mb-3"><i class="fas fa-medal"></i> Records & Achievements</h2>
+                </div>
+                <div class="col-12">
+                    <div id="achievements-container">
+                        <!-- Rempli dynamiquement -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Historique des matchs -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                        <h2 class="mb-0"><i class="fas fa-history"></i> Historique complet</h2>
+                        <div>
+                            <label for="matchup-match-limit-select" class="form-label mb-1 me-2">
+                                <small>Afficher :</small>
+                            </label>
+                            <select class="form-select form-select-sm d-inline-block" id="matchup-match-limit-select" style="width: auto;">
+                                <option value="10">10 matchs</option>
+                                <option value="25">25 matchs</option>
+                                <option value="50">50 matchs</option>
+                                <option value="all" selected>Tous les matchs</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body p-0">
+                            <div id="matchup-history-container">
+                                <!-- Rempli dynamiquement -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-lock"></i> Connexion requise
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <form id="login-form">
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Mot de passe</label>
+                            <input type="password" class="form-control" id="password" required>
+                        </div>
+                        <div id="login-error" class="alert alert-danger d-none"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="login()">
+                        <i class="fas fa-sign-in-alt"></i> Se connecter
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/matchup.js"></script>
+
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js')
+                .then(reg => console.log('✅ Service Worker enregistré avec succès', reg))
+                .catch(err => console.error('❌ Erreur Service Worker:', err));
+        }
+    </script>
+</body>
+</html>
+

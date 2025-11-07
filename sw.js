@@ -2,13 +2,14 @@
 // Service Worker pour Smash Ultimate Tracker
 // ===================================
 
-const CACHE_NAME = 'smash-tracker-v7';
+const CACHE_NAME = 'smash-tracker-v9';
 const urlsToCache = [
   './',
   './index.html',
   './session.html',
   './stats.html',
   './player-stats.html',
+  './matchup.html',
   './players.html',
   './backup.html',
   './css/style.css',
@@ -22,6 +23,7 @@ const urlsToCache = [
   './js/snackbar.js',
   './js/stats.js',
   './js/player-stats.js',
+  './js/matchup.js',
   './js/players.js',
   './icon.png',
   './manifest.json'

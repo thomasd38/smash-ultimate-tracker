@@ -373,14 +373,16 @@ function displayMatchups(playerId, matches) {
         bestContainer.innerHTML = '<p class="text-muted">Pas assez de données (minimum 3 matchs contre un adversaire)</p>';
     } else {
         bestContainer.innerHTML = bestMatchups.map(m => `
-            <div class="d-flex justify-content-between align-items-center mb-2 p-2 border-bottom">
-                <div>
-                    <strong>${m.name}</strong>
-                    <br>
-                    <small class="text-muted">${m.wins}V - ${m.losses}D (${m.total} matchs)</small>
+            <a href="matchup.html?player1=${playerId}&player2=${m.id}" class="matchup-link text-decoration-none">
+                <div class="d-flex justify-content-between align-items-center mb-2 p-2 border-bottom matchup-item">
+                    <div>
+                        <strong class="text-dark">${m.name}</strong>
+                        <br>
+                        <small class="text-muted">${m.wins}V - ${m.losses}D (${m.total} matchs)</small>
+                    </div>
+                    <span class="badge bg-success fs-6">${m.winrate.toFixed(0)}%</span>
                 </div>
-                <span class="badge bg-success fs-6">${m.winrate.toFixed(0)}%</span>
-            </div>
+            </a>
         `).join('');
     }
 
@@ -390,14 +392,16 @@ function displayMatchups(playerId, matches) {
         worstContainer.innerHTML = '<p class="text-muted">Pas assez de données (minimum 3 matchs contre un adversaire)</p>';
     } else {
         worstContainer.innerHTML = worstMatchups.map(m => `
-            <div class="d-flex justify-content-between align-items-center mb-2 p-2 border-bottom">
-                <div>
-                    <strong>${m.name}</strong>
-                    <br>
-                    <small class="text-muted">${m.wins}V - ${m.losses}D (${m.total} matchs)</small>
+            <a href="matchup.html?player1=${playerId}&player2=${m.id}" class="matchup-link text-decoration-none">
+                <div class="d-flex justify-content-between align-items-center mb-2 p-2 border-bottom matchup-item">
+                    <div>
+                        <strong class="text-dark">${m.name}</strong>
+                        <br>
+                        <small class="text-muted">${m.wins}V - ${m.losses}D (${m.total} matchs)</small>
+                    </div>
+                    <span class="badge bg-danger fs-6">${m.winrate.toFixed(0)}%</span>
                 </div>
-                <span class="badge bg-danger fs-6">${m.winrate.toFixed(0)}%</span>
-            </div>
+            </a>
         `).join('');
     }
 }

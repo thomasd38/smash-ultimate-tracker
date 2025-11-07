@@ -1580,3 +1580,159 @@ footer i.fa-heart {
     }
 }
 
+/* ===================================
+   Match History Styles
+   =================================== */
+
+.match-history-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.match-history-item {
+    border-bottom: 1px solid #dee2e6;
+    transition: background-color 0.2s;
+}
+
+.match-history-item:last-child {
+    border-bottom: none;
+}
+
+.match-history-item:hover {
+    background-color: #f8f9fa;
+}
+
+/* Version Desktop */
+.match-history-desktop {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+}
+
+.match-history-mobile {
+    display: none;
+}
+
+.match-result-badge {
+    min-width: 40px;
+}
+
+.match-result-badge .badge {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.6rem;
+    font-weight: 600;
+}
+
+.match-characters {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+}
+
+.match-char-player,
+.match-char-opponent {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.char-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+}
+
+.char-name {
+    font-size: 0.95rem;
+}
+
+.match-vs {
+    color: #6c757d;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.match-opponent {
+    min-width: 120px;
+    text-align: center;
+}
+
+.match-info {
+    min-width: 100px;
+    text-align: right;
+}
+
+.match-score {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+}
+
+.match-date {
+    font-size: 0.8rem;
+}
+
+/* Version Mobile */
+@media (max-width: 768px) {
+    .match-history-desktop {
+        display: none;
+    }
+
+    .match-history-mobile {
+        display: block;
+        padding: 0.75rem;
+    }
+
+    .match-mobile-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        gap: 0.5rem;
+    }
+
+    .match-mobile-header .badge {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.5rem;
+        white-space: nowrap;
+    }
+
+    .match-score-mobile {
+        font-size: 0.95rem;
+    }
+
+    .match-date-mobile {
+        font-size: 0.75rem;
+    }
+
+    .match-mobile-body {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .match-mobile-char {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.9rem;
+    }
+
+    .char-icon-mobile {
+        width: 28px;
+        height: 28px;
+        border-radius: 4px;
+    }
+
+    .match-vs-mobile {
+        color: #6c757d;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+
+    .match-mobile-footer {
+        font-size: 0.8rem;
+    }
+}
+
